@@ -1,0 +1,401 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		60BB3EAD1BED733D009C1197 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3EAC1BED733D009C1197 /* AppDelegate.swift */; };
+		60BB3EAF1BED733D009C1197 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3EAE1BED733D009C1197 /* ViewController.swift */; };
+		60BB3EB21BED733E009C1197 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3EB01BED733E009C1197 /* Main.storyboard */; };
+		60BB3EB41BED733E009C1197 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3EB31BED733E009C1197 /* Assets.xcassets */; };
+		60BB3EB71BED733E009C1197 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3EB51BED733E009C1197 /* LaunchScreen.storyboard */; };
+		60BB3EC21BED733E009C1197 /* ManjaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3EC11BED733E009C1197 /* ManjaTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		60BB3EBE1BED733E009C1197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60BB3EA11BED733D009C1197 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 60BB3EA81BED733D009C1197;
+			remoteInfo = Manja;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		60BB3EA91BED733D009C1197 /* Manja.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Manja.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BB3EAC1BED733D009C1197 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		60BB3EAE1BED733D009C1197 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		60BB3EB11BED733E009C1197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		60BB3EB31BED733E009C1197 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		60BB3EB61BED733E009C1197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		60BB3EB81BED733E009C1197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60BB3EBD1BED733E009C1197 /* ManjaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManjaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60BB3EC11BED733E009C1197 /* ManjaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManjaTests.swift; sourceTree = "<group>"; };
+		60BB3EC31BED733E009C1197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		60BB3EA61BED733D009C1197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60BB3EBA1BED733E009C1197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		60BB3EA01BED733D009C1197 = {
+			isa = PBXGroup;
+			children = (
+				60BB3EAB1BED733D009C1197 /* Manja */,
+				60BB3EC01BED733E009C1197 /* ManjaTests */,
+				60BB3EAA1BED733D009C1197 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		60BB3EAA1BED733D009C1197 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60BB3EA91BED733D009C1197 /* Manja.app */,
+				60BB3EBD1BED733E009C1197 /* ManjaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		60BB3EAB1BED733D009C1197 /* Manja */ = {
+			isa = PBXGroup;
+			children = (
+				60BB3EAC1BED733D009C1197 /* AppDelegate.swift */,
+				60BB3EAE1BED733D009C1197 /* ViewController.swift */,
+				60BB3EB01BED733E009C1197 /* Main.storyboard */,
+				60BB3EB31BED733E009C1197 /* Assets.xcassets */,
+				60BB3EB51BED733E009C1197 /* LaunchScreen.storyboard */,
+				60BB3EB81BED733E009C1197 /* Info.plist */,
+			);
+			path = Manja;
+			sourceTree = "<group>";
+		};
+		60BB3EC01BED733E009C1197 /* ManjaTests */ = {
+			isa = PBXGroup;
+			children = (
+				60BB3EC11BED733E009C1197 /* ManjaTests.swift */,
+				60BB3EC31BED733E009C1197 /* Info.plist */,
+			);
+			path = ManjaTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		60BB3EA81BED733D009C1197 /* Manja */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60BB3EC61BED733E009C1197 /* Build configuration list for PBXNativeTarget "Manja" */;
+			buildPhases = (
+				60BB3EA51BED733D009C1197 /* Sources */,
+				60BB3EA61BED733D009C1197 /* Frameworks */,
+				60BB3EA71BED733D009C1197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Manja;
+			productName = Manja;
+			productReference = 60BB3EA91BED733D009C1197 /* Manja.app */;
+			productType = "com.apple.product-type.application";
+		};
+		60BB3EBC1BED733E009C1197 /* ManjaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60BB3EC91BED733E009C1197 /* Build configuration list for PBXNativeTarget "ManjaTests" */;
+			buildPhases = (
+				60BB3EB91BED733E009C1197 /* Sources */,
+				60BB3EBA1BED733E009C1197 /* Frameworks */,
+				60BB3EBB1BED733E009C1197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60BB3EBF1BED733E009C1197 /* PBXTargetDependency */,
+			);
+			name = ManjaTests;
+			productName = ManjaTests;
+			productReference = 60BB3EBD1BED733E009C1197 /* ManjaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		60BB3EA11BED733D009C1197 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Faustino Dabraio da Silva";
+				TargetAttributes = {
+					60BB3EA81BED733D009C1197 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					60BB3EBC1BED733E009C1197 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 60BB3EA81BED733D009C1197;
+					};
+				};
+			};
+			buildConfigurationList = 60BB3EA41BED733D009C1197 /* Build configuration list for PBXProject "Manja" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 60BB3EA01BED733D009C1197;
+			productRefGroup = 60BB3EAA1BED733D009C1197 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60BB3EA81BED733D009C1197 /* Manja */,
+				60BB3EBC1BED733E009C1197 /* ManjaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		60BB3EA71BED733D009C1197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60BB3EB71BED733E009C1197 /* LaunchScreen.storyboard in Resources */,
+				60BB3EB41BED733E009C1197 /* Assets.xcassets in Resources */,
+				60BB3EB21BED733E009C1197 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60BB3EBB1BED733E009C1197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		60BB3EA51BED733D009C1197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60BB3EAF1BED733D009C1197 /* ViewController.swift in Sources */,
+				60BB3EAD1BED733D009C1197 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60BB3EB91BED733E009C1197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60BB3EC21BED733E009C1197 /* ManjaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		60BB3EBF1BED733E009C1197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 60BB3EA81BED733D009C1197 /* Manja */;
+			targetProxy = 60BB3EBE1BED733E009C1197 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		60BB3EB01BED733E009C1197 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60BB3EB11BED733E009C1197 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		60BB3EB51BED733E009C1197 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60BB3EB61BED733E009C1197 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		60BB3EC41BED733E009C1197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		60BB3EC51BED733E009C1197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		60BB3EC71BED733E009C1197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Manja/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.dabraio.Manja;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		60BB3EC81BED733E009C1197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Manja/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.dabraio.Manja;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		60BB3ECA1BED733E009C1197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ManjaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.dabraio.ManjaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Manja.app/Manja";
+			};
+			name = Debug;
+		};
+		60BB3ECB1BED733E009C1197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ManjaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.dabraio.ManjaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Manja.app/Manja";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		60BB3EA41BED733D009C1197 /* Build configuration list for PBXProject "Manja" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60BB3EC41BED733E009C1197 /* Debug */,
+				60BB3EC51BED733E009C1197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60BB3EC61BED733E009C1197 /* Build configuration list for PBXNativeTarget "Manja" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60BB3EC71BED733E009C1197 /* Debug */,
+				60BB3EC81BED733E009C1197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		60BB3EC91BED733E009C1197 /* Build configuration list for PBXNativeTarget "ManjaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60BB3ECA1BED733E009C1197 /* Debug */,
+				60BB3ECB1BED733E009C1197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 60BB3EA11BED733D009C1197 /* Project object */;
+}
