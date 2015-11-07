@@ -42,7 +42,7 @@
 		60BB3EC11BED733E009C1197 /* ManjaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManjaTests.swift; sourceTree = "<group>"; };
 		60BB3EC31BED733E009C1197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60BB3ECC1BED9744009C1197 /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
-		60ED10CC1BEE61A300E7567B /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		60ED10CC1BEE61A300E7567B /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Meal.swift; path = ../Meal.swift; sourceTree = "<group>"; };
 		60ED10CF1BEE722400E7567B /* MealTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		60ED10D11BEE79A700E7567B /* MealTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +68,6 @@
 		60BB3EA01BED733D009C1197 = {
 			isa = PBXGroup;
 			children = (
-				60ED10CC1BEE61A300E7567B /* Meal.swift */,
 				60BB3EAB1BED733D009C1197 /* Manja */,
 				60BB3EC01BED733E009C1197 /* ManjaTests */,
 				60BB3EAA1BED733D009C1197 /* Products */,
@@ -87,6 +86,7 @@
 		60BB3EAB1BED733D009C1197 /* Manja */ = {
 			isa = PBXGroup;
 			children = (
+				60ED10CC1BEE61A300E7567B /* Meal.swift */,
 				60BB3EAC1BED733D009C1197 /* AppDelegate.swift */,
 				60BB3EAE1BED733D009C1197 /* MealViewController.swift */,
 				60BB3EB01BED733E009C1197 /* Main.storyboard */,
