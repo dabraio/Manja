@@ -1,5 +1,5 @@
 //
-//  MealTableViewCell.swift
+//  MealListTableViewCell.swift
 //  Manja
 //
 //  Created by Faustino da Silva on 07/11/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MealTableViewCell: UITableViewCell {
+class MealListTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!

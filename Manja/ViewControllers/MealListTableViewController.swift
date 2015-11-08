@@ -1,5 +1,5 @@
 //
-//  MealTableViewController.swift
+//  MealListTableViewController.swift
 //  Manja
 //
 //  Created by Faustino da Silva on 07/11/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MealTableViewController: UITableViewController {
+class MealListTableViewController: UITableViewController {
     // MARK: Properties
     var meals = [Meal]()
     
@@ -21,13 +21,13 @@ class MealTableViewController: UITableViewController {
         // Load any saved meals, otherwise load sample data.
         if let savedMeals = loadMeals() {
             meals += savedMeals
-        } else {
+        } /*else {
             // Load the sample data.
             loadSampleMeals()
-        }
+        }*/
     }
     
-    func loadSampleMeals() {
+    /*func loadSampleMeals() {
         let photo1 = UIImage(named: "meal1")!
         let meal1 = Meal(name: "Caprese Salad", photo: photo1, rating: 4)!
         
@@ -38,7 +38,7 @@ class MealTableViewController: UITableViewController {
         let meal3 = Meal(name: "Pasta with Meatballs", photo: photo3, rating: 3)!
         
         meals += [meal1, meal2, meal3]
-    }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -59,7 +59,7 @@ class MealTableViewController: UITableViewController {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "MealTableViewCell"
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! MealTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! MealListTableViewCell
         
         // Fetches the appropriate meal for the data source layout.
         let meal = meals[indexPath.row]
@@ -111,9 +111,9 @@ class MealTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail" {
-            let mealDetailViewController = segue.destinationViewController as! MealViewController
+            let mealDetailViewController = segue.destinationViewController as! NewMealViewController
             // Get the cell that generated this segue.
-            if let selectedMealCell = sender as? MealTableViewCell {
+            if let selectedMealCell = sender as? MealListTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedMealCell)!
                 let selectedMeal = meals[indexPath.row]
                 mealDetailViewController.meal = selectedMeal
@@ -124,7 +124,7 @@ class MealTableViewController: UITableViewController {
     }
 
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? MealViewController, meal = sourceViewController.meal {
+        if let sourceViewController = sender.sourceViewController as? NewMealViewController, meal = sourceViewController.meal {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing meal.
                 meals[selectedIndexPath.row] = meal
@@ -137,15 +137,17 @@ class MealTableViewController: UITableViewController {
             }
             // Save the meals.
             saveMeals()
+        } else if let sourceViewController = sender.sourceViewController as? AddMealTableViewController, meal = sourceViewController.meal {
+            HealthKitManager.saveSample("", date: NSDate(), value: Double(meal.rating))
         }
     }
     
     // MARK: NSCoding
     func saveMeals() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(meals, toFile: Meal.ArchiveURL.path!)
-        if !isSuccessfulSave {
-            //print("Failed to save meals...")
-        }
+        /*let isSuccessfulSave =*/ NSKeyedArchiver.archiveRootObject(meals, toFile: Meal.ArchiveURL.path!)
+        /*if !isSuccessfulSave {
+            print("Failed to save meals...")
+        }*/
     }
     
     func loadMeals() -> [Meal]? {
