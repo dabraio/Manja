@@ -83,11 +83,9 @@ class NewMealViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             let name = "what" ?? ""
             
             // Set the meal to be passed to MealTableViewController after the unwind segue.
-            meal = Meal(name: name, photo: nil, rating: 0)
+            //x meal = Meal(name: name, photo: nil, rating: 0)
         } else if sendToHealthButton === sender {
-            if (!HealthKitManager.saveSample("", date: NSDate(), value: 0.75)) {
-                print("Failed")
-            }
+            
         }
     }
     

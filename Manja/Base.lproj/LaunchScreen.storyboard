@@ -25,10 +25,10 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="uTr-3E-XON" secondAttribute="bottom" id="ONv-qd-iRs"/>
-                            <constraint firstItem="uTr-3E-XON" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Wex-w0-yDz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="uTr-3E-XON" secondAttribute="trailing" id="fzI-h6-dkB"/>
-                            <constraint firstItem="uTr-3E-XON" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="wyI-wP-uUw"/>
+                            <constraint firstItem="uTr-3E-XON" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="6TA-FU-HPg"/>
+                            <constraint firstItem="uTr-3E-XON" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="RJh-q0-39Z"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="uTr-3E-XON" secondAttribute="bottom" id="YHV-L6-0dp"/>
+                            <constraint firstItem="uTr-3E-XON" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="vhI-2g-uEn"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppLogo" width="256" height="256"/>
+        <image name="AppLogo" width="375" height="667"/>
     </resources>
 </document>
