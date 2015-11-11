@@ -137,16 +137,19 @@ class MealListTableViewController: UITableViewController {
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the cell that generated this segue.
+        let mealViewController = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! MealTableViewController
         if segue.identifier == "AddMeal" {
-            let addMealViewController = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! AddMealTableViewController
-            // Get the cell that generated this segue.
+            mealViewController.editMode = .Add
             if let selectedMealCell = sender as? UITableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedMealCell)!
                 let selectedMeal = meals[indexPath.section].meals[indexPath.row]
-                addMealViewController.meal = selectedMeal.copy() as? Meal
+                mealViewController.meal = selectedMeal.copy() as? Meal
             }
         } else if segue.identifier == "NewMeal" {
-            //print("Adding new meal.")
+            mealViewController.editMode = .New
+        } else if segue.identifier == "EditMeal" {
+            mealViewController.editMode = .Edit
         }
     }
 
@@ -164,7 +167,7 @@ class MealListTableViewController: UITableViewController {
             }
             // Save the meals.
             saveMeals()
-        } else*/ if let sourceViewController = sender.sourceViewController as? AddMealTableViewController, meal = sourceViewController.meal {
+        } else*/ if let sourceViewController = sender.sourceViewController as? MealTableViewController, meal = sourceViewController.meal {
             meal.sendToHealth()
         }
     }

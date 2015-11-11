@@ -1,5 +1,5 @@
 //
-//  AddMealTableViewController.swift
+//  MealTableViewController.swift
 //  Manja
 //
 //  Created by Faustino da Silva on 08/11/2015.
@@ -8,7 +8,11 @@
 
 import UIKit
 
-class AddMealTableViewController: UITableViewController, UITextFieldDelegate {
+class MealTableViewController: UITableViewController, UITextFieldDelegate {
+    enum EditMode {
+        case Add, Edit, New
+    }
+    
     // MARK: Properties
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -19,6 +23,7 @@ class AddMealTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     private var dateTimePickerVisible = false
+    var editMode: EditMode = .Add
     
     private func dateChanged() {
         tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
@@ -103,10 +108,6 @@ class AddMealTableViewController: UITableViewController, UITextFieldDelegate {
             dateTimePicker.addTarget(self, action: "didChangeDate:", forControlEvents: UIControlEvents.ValueChanged)
             dateTimePicker.date = date
         case (0, 3):
-            /*cell = tableView.dequeueReusableCellWithIdentifier("EditableTextTableViewCell", forIndexPath: indexPath) as! EditableTextTableViewCell
-            cell.textLabel!.text = "Quantity"
-            (cell as! EditableTextTableViewCell).valueTextField!.text = "???"*/
-            
             cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath) as! FixedTextTableViewCell
             cell.textLabel!.text = "Quantity"
             cell.detailTextLabel!.hidden = true
