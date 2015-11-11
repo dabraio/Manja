@@ -9,15 +9,20 @@
 import UIKit
 
 class Meal : NSObject, NSCopying {
+    struct Fact {
+        var typeIdentifier: String
+        var value: Double
+    }
+    
     // MARK: Properties
     var name: String
-    var facts: [String: Double]
+    var facts: [Fact]
     var referenceServing: Double
     var serving: Double
     var timestamp: NSDate?
     
     // MARK: Initialization
-    init?(name: String, facts: [String: Double], referenceServing: Double, serving: Double) {
+    init?(name: String, facts: [Fact], referenceServing: Double, serving: Double) {
         // Initialize stored properties.
         self.name = name
         self.facts = facts
@@ -38,7 +43,22 @@ class Meal : NSObject, NSCopying {
         return copy
     }
     
-    func newValueForType(typeIdentifier: String) -> Double {
-        return facts[typeIdentifier]! * serving / referenceServing
+    /*func newValueForType(typeIdentifier: String) -> Double {
+        for fact: Fact in facts {
+            if fact.typeIdentifier == typeIdentifier {
+                return fact.value * serving / referenceServing
+            }
+        }
+        return 0
+    }*/
+    
+    func newValueForTypeAtPosition(position: Int) -> Double {
+        return facts[position].value * serving / referenceServing
+    }
+    
+    func sendToHealth() {
+        for fact in facts {
+            HealthKitManager.saveSample(fact.typeIdentifier, date: timestamp!, value: fact.value * serving / referenceServing, unit: HealthKitManager.types[fact.typeIdentifier]!.unit)
+        }
     }
 }

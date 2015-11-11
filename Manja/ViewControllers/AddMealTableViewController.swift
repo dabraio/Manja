@@ -131,6 +131,7 @@ class AddMealTableViewController: UITableViewController, UITextFieldDelegate {
             textField.delegate = self
             
             let formatter = NSNumberFormatter()
+            formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
             
@@ -138,15 +139,16 @@ class AddMealTableViewController: UITableViewController, UITextFieldDelegate {
             
         default:
             cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath) as! FixedTextTableViewCell
-            let typeIdentifier: String = Array(meal!.facts.keys)[indexPath.row]
+            let typeIdentifier: String = meal!.facts[indexPath.row].typeIdentifier
             let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
             
             cell.textLabel!.text = fact.description
             
             let formatter = NSNumberFormatter()
+            formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
-            cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForType(typeIdentifier))!) \(fact.unitDescription())"
+            cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row))!) \(fact.unitDescription())"
         }
         
         return cell
