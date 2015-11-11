@@ -43,14 +43,16 @@ class Meal : NSObject, NSCopying {
         return copy
     }
     
-    /*func newValueForType(typeIdentifier: String) -> Double {
-        for fact: Fact in facts {
-            if fact.typeIdentifier == typeIdentifier {
-                return fact.value * serving / referenceServing
-            }
+    override init() {
+        name = ""
+        facts = []
+        for typeIdentifier in HealthKitManager.types.keys {
+            facts.append(Fact(typeIdentifier: typeIdentifier, value: 0))
         }
-        return 0
-    }*/
+        referenceServing = 100
+        serving = 100
+        timestamp = nil
+    }
     
     func newValueForTypeAtPosition(position: Int) -> Double {
         return facts[position].value * serving / referenceServing

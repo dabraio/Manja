@@ -14,8 +14,8 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: Properties
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var leftBarButton: UIBarButtonItem!
+    @IBOutlet weak var rightBarButton: UIBarButtonItem!
     var meal: Meal?
     var date: NSDate = NSDate() {
         didSet {
@@ -23,7 +23,18 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     private var dateTimePickerVisible = false
-    var editMode: EditMode = .Add
+    var editMode: EditMode = .Add {
+        didSet {
+            switch editMode {
+            case .Add:
+                self.title = "Add Meal"
+            case .Edit:
+                self.title = "Edit Meal"
+            case .New:
+                self.title = "New Meal"
+            }
+        }
+    }
     
     private func dateChanged() {
         tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
@@ -108,8 +119,8 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             dateTimePicker.addTarget(self, action: "didChangeDate:", forControlEvents: UIControlEvents.ValueChanged)
             dateTimePicker.date = date
         case (0, 3):
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath) as! FixedTextTableViewCell
-            cell.textLabel!.text = "Quantity"
+            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
+            cell.textLabel!.text = "Serving Size"
             cell.detailTextLabel!.hidden = true
             cell.removeFromSuperview()
             
@@ -139,14 +150,14 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             textField.text = "\(formatter.stringFromNumber(meal!.serving)!)"
         case (1, 0):
             cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-            cell.textLabel!.text = "Reference Quantity"
+            cell.textLabel!.text = "Reference Serving Size"
             let formatter = NSNumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
             cell.detailTextLabel!.text = formatter.stringFromNumber(meal!.referenceServing)
         default:
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath) as! FixedTextTableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
             let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
             let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
             
@@ -230,8 +241,10 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if sender === saveButton {
-            meal!.timestamp = date
+        if sender === rightBarButton {
+            if editMode == .Add {
+                meal!.timestamp = date
+            }
         } else {
             meal = nil
         }

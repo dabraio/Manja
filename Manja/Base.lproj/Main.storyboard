@@ -8,7 +8,7 @@
         <scene sceneID="PYl-RK-r9v">
             <objects>
                 <tableViewController id="KHE-oB-dml" customClass="MealListTableViewController" customModule="Manja" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="lHL-qP-HvU">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="lHL-qP-HvU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -34,7 +34,7 @@
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
-                                    <segue destination="HKH-dd-KR4" kind="presentation" identifier="AddMeal" id="64B-a6-hCW"/>
+                                    <segue destination="HKH-dd-KR4" kind="presentation" identifier="AddOrEditMeal" id="64B-a6-hCW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -47,7 +47,11 @@
                         <barButtonItem title="Item" id="TFd-65-0vj"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Manja" id="4WC-pa-ia2">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="add" id="6W6-Uo-jSx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="6W6-Uo-jSx">
+                            <connections>
+                                <segue destination="HKH-dd-KR4" kind="presentation" identifier="NewMeal" id="xtp-wL-7GY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
@@ -74,7 +78,7 @@
             </objects>
             <point key="canvasLocation" x="-491" y="350"/>
         </scene>
-        <!--Add Meal-->
+        <!--Meal-->
         <scene sceneID="oYf-1K-qPx">
             <objects>
                 <tableViewController id="IgK-Rw-ebi" customClass="MealTableViewController" customModule="Manja" customModuleProvider="target" sceneMemberID="viewController">
@@ -84,7 +88,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FixedTextTableViewCell" textLabel="vES-HT-dw9" detailTextLabel="H6b-kb-w52" style="IBUITableViewCellStyleValue1" id="Cfg-Wq-BBF" customClass="FixedTextTableViewCell" customModule="Manja" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FixedTextTableViewCell" textLabel="vES-HT-dw9" detailTextLabel="H6b-kb-w52" style="IBUITableViewCellStyleValue1" id="Cfg-Wq-BBF">
                                 <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cfg-Wq-BBF" id="crO-IT-7p0">
@@ -149,7 +153,7 @@
                             <outlet property="delegate" destination="IgK-Rw-ebi" id="Tvc-DU-p6c"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Meal" id="17n-Zt-otg">
+                    <navigationItem key="navigationItem" title="Meal" id="17n-Zt-otg">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ke8-bQ-3MQ">
                             <connections>
                                 <action selector="cancel:" destination="IgK-Rw-ebi" id="D2T-bF-Ylb"/>
@@ -162,14 +166,45 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cancelButton" destination="Ke8-bQ-3MQ" id="273-9Q-Tho"/>
-                        <outlet property="saveButton" destination="Z4n-1V-HfS" id="cUF-N8-mqn"/>
+                        <outlet property="leftBarButton" destination="Ke8-bQ-3MQ" id="EHr-55-qtv"/>
+                        <outlet property="rightBarButton" destination="Z4n-1V-HfS" id="PR6-qw-fmc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5F-J9-XOd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="px8-hz-jag" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2227" y="-493"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="gu1-xF-7I6">
+            <objects>
+                <tableViewController id="AP7-zw-VGh" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6b9-Yd-FNB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rwu-jF-f0B">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rwu-jF-f0B" id="T7f-CA-ynU">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="AP7-zw-VGh" id="tyY-34-jZS"/>
+                            <outlet property="delegate" destination="AP7-zw-VGh" id="67Z-zS-bOC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ijg-vg-xhN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2227" y="204"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QP7-KR-CB3">
@@ -191,4 +226,7 @@
             <point key="canvasLocation" x="1205" y="-181"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="64B-a6-hCW"/>
+    </inferredMetricsTieBreakers>
 </document>

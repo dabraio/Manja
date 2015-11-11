@@ -139,17 +139,18 @@ class MealListTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the cell that generated this segue.
         let mealViewController = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! MealTableViewController
-        if segue.identifier == "AddMeal" {
-            mealViewController.editMode = .Add
+        if segue.identifier == "AddOrEditMeal" {
+            mealViewController.editMode = tableView.editing ? .Edit : .Add
+            
             if let selectedMealCell = sender as? UITableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedMealCell)!
                 let selectedMeal = meals[indexPath.section].meals[indexPath.row]
+                
                 mealViewController.meal = selectedMeal.copy() as? Meal
             }
         } else if segue.identifier == "NewMeal" {
             mealViewController.editMode = .New
-        } else if segue.identifier == "EditMeal" {
-            mealViewController.editMode = .Edit
+            mealViewController.meal = Meal()
         }
     }
 
