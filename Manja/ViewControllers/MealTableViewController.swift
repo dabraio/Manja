@@ -64,7 +64,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         case 0:
             return 4
         case 1:
-            return meal!.facts.count
+            return meal!.facts.count + 1
         default:
             return 0
         }
@@ -137,10 +137,17 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             formatter.maximumFractionDigits = 2
             
             textField.text = "\(formatter.stringFromNumber(meal!.serving)!)"
-            
+        case (1, 0):
+            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
+            cell.textLabel!.text = "Reference Quantity"
+            let formatter = NSNumberFormatter()
+            formatter.minimumIntegerDigits = 1
+            formatter.minimumFractionDigits = 0
+            formatter.maximumFractionDigits = 2
+            cell.detailTextLabel!.text = formatter.stringFromNumber(meal!.referenceServing)
         default:
             cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath) as! FixedTextTableViewCell
-            let typeIdentifier: String = meal!.facts[indexPath.row].typeIdentifier
+            let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
             let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
             
             cell.textLabel!.text = fact.description
@@ -149,7 +156,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
-            cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row))!) \(fact.unitDescription())"
+            cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())"
         }
         
         return cell
