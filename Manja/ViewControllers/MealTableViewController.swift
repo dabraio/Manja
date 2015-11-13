@@ -169,7 +169,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func createEditableTableViewCell(indexPath: NSIndexPath, labelText: String, value: String) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("EditableTextTableViewCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
         
         /*cell.detailTextLabel!.hidden = true
         
