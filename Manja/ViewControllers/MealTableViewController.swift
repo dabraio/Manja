@@ -119,35 +119,11 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             dateTimePicker.addTarget(self, action: "didChangeDate:", forControlEvents: UIControlEvents.ValueChanged)
             dateTimePicker.date = date
         case (0, 3):
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-            cell.textLabel!.text = "Serving Size"
-            cell.detailTextLabel!.hidden = true
-            cell.removeFromSuperview()
-            
-            cell.viewWithTag(3)?.removeFromSuperview()
-            
-            let textField: UITextField = UITextField()
-            textField.tag = 3;
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            cell.contentView.addSubview(textField)
-            cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: cell.textLabel, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 8))
-            cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 8))
-            cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: -8))
-            cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: cell.detailTextLabel, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0))
-            
-            textField.textAlignment = NSTextAlignment.Right;
-            textField.keyboardType = UIKeyboardType.DecimalPad
-            
-            textField.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: UIControlEvents.EditingChanged)
-            
-            textField.delegate = self
-            
             let formatter = NSNumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
-            
-            textField.text = "\(formatter.stringFromNumber(meal!.serving)!)"
+            cell = createEditableTableViewCell(indexPath, labelText: "Serving Size", value: formatter.stringFromNumber(meal!.serving)!)
         case (1, 0):
             cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
             cell.textLabel!.text = "Reference Serving Size"
@@ -157,19 +133,91 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             formatter.maximumFractionDigits = 2
             cell.detailTextLabel!.text = formatter.stringFromNumber(meal!.referenceServing)
         default:
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-            let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
-            let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
-            
-            cell.textLabel!.text = fact.description
-            
-            let formatter = NSNumberFormatter()
-            formatter.minimumIntegerDigits = 1
-            formatter.minimumFractionDigits = 0
-            formatter.maximumFractionDigits = 2
-            cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())"
+            if editMode == .Add {
+                cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
+                let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
+                let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
+                
+                cell.textLabel!.text = fact.description
+                
+                let formatter = NSNumberFormatter()
+                formatter.minimumIntegerDigits = 1
+                formatter.minimumFractionDigits = 0
+                formatter.maximumFractionDigits = 2
+                cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())"
+            } else {
+                let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
+                let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
+                
+                let formatter = NSNumberFormatter()
+                formatter.minimumIntegerDigits = 1
+                formatter.minimumFractionDigits = 0
+                formatter.maximumFractionDigits = 2
+                
+                cell = createTableViewCell(indexPath, labelText: fact.fullDescription(), detail: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!)")
+            }
         }
         
+        return cell
+    }
+    
+    func createTableViewCell(indexPath: NSIndexPath, labelText: String, detail: String) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
+        cell.textLabel!.text = labelText
+        cell.detailTextLabel!.text = detail
+        return cell
+    }
+    
+    func createEditableTableViewCell(indexPath: NSIndexPath, labelText: String, value: String) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("EditableTextTableViewCell", forIndexPath: indexPath)
+        
+        /*cell.detailTextLabel!.hidden = true
+        
+        let textField: UITextField = UITextField()
+        textField.tag = indexPath.section * 1000 + indexPath.row
+        textField.enablesReturnKeyAutomatically = true
+        textField.autocorrectionType = .No
+        textField.autocapitalizationType = .None
+        textField.textAlignment = .Right
+        textField.text = "100"
+        
+        cell.contentView.addSubview(textField)
+        
+        let cellBounds: CGRect = cell.bounds
+        let textFieldBorder: CGFloat = cell.textLabel!.bounds.width + 100
+        let aRect: CGRect = CGRectMake(textFieldBorder, 0, CGRectGetWidth(cellBounds)-textFieldBorder-cell.textLabel!.bounds.minX, cellBounds.height)
+        
+        textField.frame = aRect
+        
+        // Configure UITextAttributes for each field
+            textField.placeholder = "Name"
+            textField.returnKeyType = UIReturnKeyType.Next
+            textField.autocapitalizationType = UITextAutocapitalizationType.Words
+        */
+        cell.textLabel!.text = labelText
+        cell.detailTextLabel!.hidden = true
+        cell.removeFromSuperview()
+        
+        cell.viewWithTag(indexPath.section * 1000 + indexPath.row)?.removeFromSuperview()
+        
+        let textField: UITextField = UITextField()
+        textField.tag = indexPath.section * 1000 + indexPath.row;
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        cell.contentView.addSubview(textField)
+        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: cell.textLabel, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 8))
+        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 8))
+        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: -8))
+        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: cell.detailTextLabel, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0))
+        
+        textField.textAlignment = NSTextAlignment.Right;
+        textField.keyboardType = UIKeyboardType.DecimalPad
+        
+        textField.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: UIControlEvents.EditingChanged)
+        
+        textField.delegate = self
+        
+        textField.text = value
+
         return cell
     }
     
