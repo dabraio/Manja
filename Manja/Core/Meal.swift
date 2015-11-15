@@ -8,22 +8,30 @@
 
 import UIKit
 
-class Meal : NSObject, NSCopying {
-    struct Fact {
-        var typeIdentifier: String
-        var value: Double
+class Meal: NSObject, NSCopying, NSCoding {
+    // MARK: Types
+    struct PropertyKey {
+        static let name = "Manja.Meal.name"
+        static let category = "Manja.Meal.category"
+        static let facts = "Manja.Meal.facts"
+        static let referenceServing = "Manja.Meal.referenceServing"
+        static let serving = "Manja.Meal.serving"
     }
     
     // MARK: Properties
     var name: String
     var category: String
-    var facts: [Fact]
+    var facts: [NutritionFact]
     var referenceServing: Double
     var serving: Double
     var timestamp: NSDate?
     
+    // MARK: Archiving Paths
+    /*static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("Meal")*/
+    
     // MARK: Initialization
-    init?(name: String, category: String, facts: [Fact], referenceServing: Double, serving: Double) {
+    init?(name: String, category: String, facts: [NutritionFact], referenceServing: Double, serving: Double) {
         // Initialize stored properties.
         self.name = name
         self.category = category
@@ -49,9 +57,8 @@ class Meal : NSObject, NSCopying {
         name = ""
         category = ""
         facts = []
-        //var fake = 1.0
         for typeIdentifier in HealthKitManager.orderedTypes {
-            facts.append(Fact(typeIdentifier: typeIdentifier, value: 0))
+            facts.append(NutritionFact(typeIdentifier: typeIdentifier, value: 0))
         }
         referenceServing = 100
         serving = 200
@@ -64,7 +71,28 @@ class Meal : NSObject, NSCopying {
     
     func sendToHealth() {
         for fact in facts {
-            HealthKitManager.saveSample(fact.typeIdentifier, date: timestamp!, value: fact.value * serving / referenceServing, unit: HealthKitManager.types[fact.typeIdentifier]!.unit, metadata: ["Meal Name": self.name, "Serving Size": self.serving])
+            let value = fact.value * serving / referenceServing
+            if value > 0 {
+                HealthKitManager.saveSample(fact.typeIdentifier, date: timestamp!, value: value, unit: HealthKitManager.types[fact.typeIdentifier]!.unit, metadata: ["Meal Name": self.name, "Serving Size": self.serving])
+            }
         }
+    }
+    
+    // MARK: NSCoding
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(name, forKey: PropertyKey.name)
+        aCoder.encodeObject(category, forKey: PropertyKey.category)
+        aCoder.encodeObject(facts, forKey: PropertyKey.facts)
+        aCoder.encodeDouble(referenceServing, forKey: PropertyKey.referenceServing)
+        aCoder.encodeDouble(serving, forKey: PropertyKey.serving)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let name = aDecoder.decodeObjectForKey(PropertyKey.name) as! String
+        let category = aDecoder.decodeObjectForKey(PropertyKey.category) as! String
+        let facts = aDecoder.decodeObjectForKey(PropertyKey.facts) as! [NutritionFact]
+        let referenceServing = aDecoder.decodeDoubleForKey(PropertyKey.referenceServing)
+        let serving = aDecoder.decodeDoubleForKey(PropertyKey.serving)
+        self.init(name: name, category: category, facts: facts, referenceServing: referenceServing, serving: serving)
     }
 }

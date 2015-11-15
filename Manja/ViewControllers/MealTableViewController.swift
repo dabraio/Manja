@@ -198,14 +198,14 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             }
         case (1, _): // Nutrition Facts
             let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
-            let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
+            let fact: TypeInfo = HealthKitManager.types[typeIdentifier]!
             let formatter = NSNumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 3
             
             if editMode == .Add {
-                cell = createTableViewCell(indexPath, leftText: fact.description, rightText: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())", tag: indexPath.row - 1)
+                cell = createTableViewCell(indexPath, leftText: fact.shortDescription, rightText: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())", tag: indexPath.row - 1)
             } else {
                 let value = meal!.facts[indexPath.row - 1].value
                 
