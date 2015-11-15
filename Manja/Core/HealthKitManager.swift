@@ -25,6 +25,8 @@ class HealthKitManager {
         }
     }
     
+    static let orderedTypes: [String] = [HKQuantityTypeIdentifierDietaryBiotin, HKQuantityTypeIdentifierDietaryCaffeine, HKQuantityTypeIdentifierDietaryCalcium, HKQuantityTypeIdentifierDietaryCarbohydrates, HKQuantityTypeIdentifierDietaryChloride, HKQuantityTypeIdentifierDietaryChromium, HKQuantityTypeIdentifierDietaryCopper, HKQuantityTypeIdentifierDietaryEnergyConsumed, HKQuantityTypeIdentifierDietaryCholesterol, HKQuantityTypeIdentifierDietarySugar, HKQuantityTypeIdentifierDietaryFiber, HKQuantityTypeIdentifierDietaryFolate, HKQuantityTypeIdentifierDietaryIodine, HKQuantityTypeIdentifierDietaryIron, HKQuantityTypeIdentifierDietaryMagnesium, HKQuantityTypeIdentifierDietaryManganese, HKQuantityTypeIdentifierDietaryMolybdenum, HKQuantityTypeIdentifierDietaryFatMonounsaturated, HKQuantityTypeIdentifierDietaryNiacin, HKQuantityTypeIdentifierDietaryPantothenicAcid, HKQuantityTypeIdentifierDietaryPhosphorus, HKQuantityTypeIdentifierDietaryFatPolyunsaturated, HKQuantityTypeIdentifierDietaryPotassium, HKQuantityTypeIdentifierDietaryProtein, HKQuantityTypeIdentifierDietaryRiboflavin, HKQuantityTypeIdentifierDietaryFatSaturated, HKQuantityTypeIdentifierDietarySelenium, HKQuantityTypeIdentifierDietarySodium, HKQuantityTypeIdentifierDietaryThiamin, HKQuantityTypeIdentifierDietaryFatTotal, HKQuantityTypeIdentifierDietaryVitaminA, HKQuantityTypeIdentifierDietaryVitaminB12, HKQuantityTypeIdentifierDietaryVitaminB6, HKQuantityTypeIdentifierDietaryVitaminC, HKQuantityTypeIdentifierDietaryVitaminD, HKQuantityTypeIdentifierDietaryVitaminE, HKQuantityTypeIdentifierDietaryVitaminK, HKQuantityTypeIdentifierDietaryWater, HKQuantityTypeIdentifierDietaryZinc]
+    
     static let types: [String: TypeInfo] = [
         HKQuantityTypeIdentifierDietaryBiotin: TypeInfo(identifier: HKQuantityTypeIdentifierDietaryBiotin, description: "Biotin", unit: HKUnit.gramUnitWithMetricPrefix(HKMetricPrefix.Micro)),
         HKQuantityTypeIdentifierDietaryCaffeine: TypeInfo(identifier: HKQuantityTypeIdentifierDietaryCaffeine, description: "Caffeine", unit: HKUnit.gramUnitWithMetricPrefix(HKMetricPrefix.Milli)),
@@ -79,8 +81,7 @@ class HealthKitManager {
         // Set the types you want to write to HK Store
         var healthKitTypesToWrite: Set<HKQuantityType> = []
         
-        let typesToWrite = Array(types.keys)
-        for type in typesToWrite {
+        for type in orderedTypes {
             healthKitTypesToWrite.insert(HKObjectType.quantityTypeForIdentifier(type)!)
         }
         
