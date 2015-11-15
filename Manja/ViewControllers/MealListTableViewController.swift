@@ -64,18 +64,6 @@ class MealListTableViewController: UITableViewController {
             Meal(name: "Sagres Radler Limão", category: "Cerveja", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 40), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 6.7), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 5.7), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 0.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 100)], referenceServing: 100, serving: 330)!,
             Meal(name: "Sagres Radler Lima-Gengibre", category: "Cerveja", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 38), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 6.3), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 5.3), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 0.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 100)], referenceServing: 100, serving: 330)!,
             Meal(name: "Sagres Radler Lima-Maçã Verde", category: "Cerveja", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 36), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 5.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 4.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 0.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 100)], referenceServing: 100, serving: 330)!]))
-        
-        /*meals.append(Category(name: "h3 (Other)", meals: [
-            Meal(name: "Molho", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 114), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 4.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 0.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 4.3), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 2.4), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 2.2), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 700)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Tuga - Molho Tuga", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 26), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 0.8), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 0.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 3.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 3.5), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 0.3), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 1300)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Tuga - Ovo Estrelado", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 88), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 6.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 1.6), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 6.2), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 300)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Tuga - Alho", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 6), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 2), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 1.3), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFiber", value: 0.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 0.3)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Med - Rúcula", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFiber", value: 0.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 0.6)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Med - Parmigiano", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 49), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 3.3), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 1.8), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 4.5), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 200)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Med - Molho de Azeite e Limão", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 88), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 9.8), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 1.6)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Legumes - Legumes Grelhados", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 71), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 3.6), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 0.8), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 7.7), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 6.1), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFiber", value: 1.7), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 1.5), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 900)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Legumes - Requeijão", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 41), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 1.7), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 0.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryCarbohydrates", value: 0.6), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySugar", value: 0.6), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryProtein", value: 1.4), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 100)], referenceServing: 1, serving: 1)!,
-            Meal(name: "Legumes - Molho de Azeite e Limão", facts: [Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryEnergyConsumed", value: 44), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatTotal", value: 4.9), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietaryFatSaturated", value: 0.8), Meal.Fact(typeIdentifier: "HKQuantityTypeIdentifierDietarySodium", value: 100)], referenceServing: 1, serving: 1)!]))*/
     }
 
     override func didReceiveMemoryWarning() {
@@ -173,7 +161,43 @@ class MealListTableViewController: UITableViewController {
             case .Add:
                 meal.sendToHealth()
             case .Edit:
-                let _ = 0
+                if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    var cleanedFacts: [Meal.Fact] = []
+                    for fact in meal.facts {
+                        if fact.value != 0 {
+                            cleanedFacts.append(fact)
+                        }
+                    }
+                    meal.facts = cleanedFacts
+                
+                    let oldMeal = meals[selectedIndexPath.section].meals[selectedIndexPath.row]
+                    
+                    if meal.category == oldMeal.category {
+                        meals[selectedIndexPath.section].meals[selectedIndexPath.row] = meal
+                        tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .Fade)
+                    } else {
+                        meals[selectedIndexPath.section].meals.removeAtIndex(selectedIndexPath.row)
+                        
+                        if meals[selectedIndexPath.section].meals.isEmpty {
+                            meals.removeAtIndex(selectedIndexPath.section)
+                        }
+                        
+                        var mealCategoryIndex: Int = -1
+                        for x in 0 ..< meals.count {
+                            if meals[x].name == meal.category {
+                                mealCategoryIndex = x
+                                break
+                            }
+                        }
+                        if mealCategoryIndex > -1 {
+                            meals[mealCategoryIndex].meals.append(meal)
+                        } else {
+                            meals.append(Category(name: meal.category, meals: [meal]))
+                        }
+                        
+                        tableView.reloadData()
+                    }
+                }
             case .New:
                 var cleanedFacts: [Meal.Fact] = []
                 for fact in meal.facts {
@@ -183,14 +207,15 @@ class MealListTableViewController: UITableViewController {
                 }
                 meal.facts = cleanedFacts
                 
-                var mealCategory: Category? = nil
-                for m in meals {
-                    if m.name == meal.category {
-                        mealCategory = m
+                var mealCategoryIndex: Int = -1
+                for x in 0 ..< meals.count {
+                    if meals[x].name == meal.category {
+                        mealCategoryIndex = x
+                        break
                     }
                 }
-                if mealCategory != nil {
-                    mealCategory?.meals.append(meal)
+                if mealCategoryIndex > -1 {
+                    meals[mealCategoryIndex].meals.append(meal)
                 } else {
                     meals.append(Category(name: meal.category, meals: [meal]))
                 }

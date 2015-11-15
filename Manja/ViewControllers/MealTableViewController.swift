@@ -104,6 +104,8 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         switch (indexPath.section, indexPath.row, editMode) {
         case (0, 2, .New):
             return 0
+        case (0, 2, .Edit):
+            return 0
         case (0, 3, _):
             return dateTimePickerVisible ? 220 : 0
         default:
