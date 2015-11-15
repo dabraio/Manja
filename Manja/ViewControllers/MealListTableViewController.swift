@@ -181,6 +181,9 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
                 }
                 
                 mealViewController.meal = selectedMeal.copy() as? Meal
+                if mealViewController.editMode == .Edit {
+                    mealViewController.meal!.restoreEmptyFacts()
+                }
             }
         } else if segue.identifier == "NewMeal" {
             mealViewController.editMode = .New

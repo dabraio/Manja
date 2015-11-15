@@ -78,6 +78,26 @@ class Meal: NSObject, NSCopying, NSCoding {
         }
     }
     
+    func restoreEmptyFacts() {
+        var newFacts: [NutritionFact] = []
+        
+        for typeIdentifier in HealthKitManager.orderedTypes {
+            var found: Bool = false
+            for oldFact in facts {
+                if oldFact.typeIdentifier == typeIdentifier {
+                    newFacts.append(oldFact)
+                    found = true
+                    break
+                }
+            }
+            if !found {
+                newFacts.append(NutritionFact(typeIdentifier: typeIdentifier, value: 0))
+            }
+        }
+        
+        facts = newFacts
+    }
+    
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.name)
