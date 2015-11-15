@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MealListTableViewController: UITableViewController {
+class MealListTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: Properties
     var mealCategories: [Category] = [Category]()
+    var filteredMealCategories: [Category] = [Category]()
+    var resultSearchController = UISearchController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,19 @@ class MealListTableViewController: UITableViewController {
             loadSampleMealCategories()
             //print("WARNING: Nothing found, loading sample meals")
         }
+        
+        self.resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.dimsBackgroundDuringPresentation = false
+            controller.searchBar.sizeToFit()
+            
+            self.tableView.tableHeaderView = controller.searchBar
+            
+            return controller
+        })()
+        
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
     }
     
     func loadSampleMealCategories() {
@@ -71,11 +86,19 @@ class MealListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return mealCategories.count
+        if (self.resultSearchController.active) {
+            return filteredMealCategories.count
+        } else {
+            return mealCategories.count
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mealCategories[section].meals.count
+        if (self.resultSearchController.active) {
+            return filteredMealCategories[section].meals.count
+        } else {
+            return mealCategories[section].meals.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -85,9 +108,14 @@ class MealListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         
         // Fetches the appropriate meal for the data source layout.
-        let meal = mealCategories[indexPath.section].meals[indexPath.row]
+        let meal: Meal?
+        if (self.resultSearchController.active) {
+            meal = filteredMealCategories[indexPath.section].meals[indexPath.row]
+        } else {
+            meal = mealCategories[indexPath.section].meals[indexPath.row]
+        }
         
-        cell.textLabel!.text = meal.name
+        cell.textLabel!.text = meal!.name
         
         return cell
     }
@@ -144,7 +172,13 @@ class MealListTableViewController: UITableViewController {
             
             if let selectedMealCell = sender as? UITableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedMealCell)!
-                let selectedMeal = mealCategories[indexPath.section].meals[indexPath.row]
+                
+                var selectedMeal: Meal
+                if (self.resultSearchController.active) {
+                    selectedMeal = filteredMealCategories[indexPath.section].meals[indexPath.row]
+                } else {
+                    selectedMeal = mealCategories[indexPath.section].meals[indexPath.row]
+                }
                 
                 mealViewController.meal = selectedMeal.copy() as? Meal
             }
@@ -161,6 +195,7 @@ class MealListTableViewController: UITableViewController {
                 meal.sendToHealth()
             case .Edit:
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    meal.category = meal.category.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     var cleanedFacts: [NutritionFact] = []
                     for fact in meal.facts {
                         if fact.value != 0 {
@@ -195,6 +230,7 @@ class MealListTableViewController: UITableViewController {
                     saveMealCategories()
                 }
             case .New:
+                meal.category = meal.category.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 var cleanedFacts: [NutritionFact] = []
                 for fact in meal.facts {
                     if fact.value != 0 {
@@ -230,5 +266,20 @@ class MealListTableViewController: UITableViewController {
     
     func loadMealCategories() -> [Category]? {
         return NSKeyedUnarchiver.unarchiveObjectWithFile(Category.ArchiveURL.path!) as? [Category]
+    }
+    
+    // MARK: UISearchResultsUpdating
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filteredMealCategories.removeAll(keepCapacity: false)
+        
+        for category in mealCategories {
+            let searchPredicate = NSPredicate(format: "name contains[cd] %@", searchController.searchBar.text!)
+            let resultsArray = (category.meals as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Meal]
+            if !resultsArray.isEmpty {
+                filteredMealCategories.append(Category(name: category.name, meals: resultsArray))
+            }
+        }
+        
+        self.tableView.reloadData()
     }
 }
