@@ -46,11 +46,12 @@ class Meal : NSObject, NSCopying {
     override init() {
         name = ""
         facts = []
+        //var fake = 1.0
         for typeIdentifier in HealthKitManager.types.keys {
             facts.append(Fact(typeIdentifier: typeIdentifier, value: 0))
         }
         referenceServing = 100
-        serving = 100
+        serving = 200
         timestamp = nil
     }
     
@@ -60,7 +61,7 @@ class Meal : NSObject, NSCopying {
     
     func sendToHealth() {
         for fact in facts {
-            HealthKitManager.saveSample(fact.typeIdentifier, date: timestamp!, value: fact.value * serving / referenceServing, unit: HealthKitManager.types[fact.typeIdentifier]!.unit)
+            HealthKitManager.saveSample(fact.typeIdentifier, date: timestamp!, value: fact.value * serving / referenceServing, unit: HealthKitManager.types[fact.typeIdentifier]!.unit, metadata: ["Meal Name": self.name, "Serving Size": self.serving])
         }
     }
 }

@@ -96,11 +96,11 @@ class HealthKitManager {
         return false
     }
     
-    static func saveSample(identifier: String, date: NSDate, value: Double, unit: HKUnit) -> Bool {
+    static func saveSample(identifier: String, date: NSDate, value: Double, unit: HKUnit, metadata: [String: AnyObject]) -> Bool {
         // 1. Create a Sample
         let type = HKQuantityType.quantityTypeForIdentifier(identifier)
         let quantity = HKQuantity(unit: unit, doubleValue: value)
-        let sample = HKQuantitySample(type: type!, quantity: quantity, startDate: date, endDate: date)
+        let sample = HKQuantitySample(type: type!, quantity: quantity, startDate: date, endDate: date, metadata: metadata)
         
         // 2. Save the sample in the store
         healthKitStore.saveObject(sample, withCompletion: { (success, error) -> Void in

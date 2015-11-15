@@ -37,10 +37,12 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func dateChanged() {
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+        //print("dateChanged")
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
     }
     
     override func viewDidLoad() {
+        //print("viewDidLoad")
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -51,11 +53,13 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     override func didReceiveMemoryWarning() {
+        //print("didReceiveMemoryWarning")
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     private func toggleDatePicker() {
+        //print("toggleDatePicker")
         dateTimePickerVisible = !dateTimePickerVisible
         
         // Force table to update its contents
@@ -66,10 +70,12 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        //print("numberOfSectionsInTableView")
         return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //print("tableView-numberOfRowsInSection")
         // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0:
@@ -82,6 +88,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //print("tableView-didSelectRowAtIndexPath at " + String(indexPath.section) + "," + String(indexPath.row) + "")
         switch (indexPath.section, indexPath.row) {
         case (0, 1):
             toggleDatePicker()
@@ -93,27 +100,56 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 2 {
+        //print("tableView-heightForRowAtIndexPath at " + String(indexPath.section) + "," + String(indexPath.row) + "")
+        switch (indexPath.section, indexPath.row, editMode) {
+        case (0, 2, _):
             return dateTimePickerVisible ? 220 : 0
-        } else {
+        case (0, 1, .New):
+            return 0
+        default:
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         }
     }
     
+    override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = cell as? EditableTextTableViewCell {
+            switch (indexPath.section, indexPath.row) {
+            case (0, 0):
+                cell.txtField.removeTarget(self, action: "editMealName:", forControlEvents: .EditingChanged)
+            case (0, 3):
+                if editMode != .Add {
+                    cell.txtField.removeTarget(self, action: "editTypicalServingSize:", forControlEvents: .EditingChanged)
+                } else {
+                    cell.txtField.removeTarget(self, action: "editServingSize:", forControlEvents: .EditingChanged)
+                }
+            case (1, 0):
+                cell.txtField.removeTarget(self, action: "editReferenceServingSize:", forControlEvents: .EditingChanged)
+            default:
+                cell.txtField.removeTarget(self, action: "editNutritionFact:", forControlEvents: .EditingChanged)
+            }
+        }
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        //print("tableView-cellForRowAtIndexPath at " + String(indexPath.section) + "," + String(indexPath.row) + "")
         let cell: UITableViewCell
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-            cell.textLabel!.text = "Name"
-            cell.detailTextLabel!.text = meal!.name
+            if editMode == .Add {
+                cell = createTableViewCell(indexPath, leftText: "Name", rightText: meal!.name, tag: 1000)
+            } else {
+                cell = createEditableTableViewCell(indexPath, leftText: "Name", rightText: meal!.name, tag: 1000)
+                (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editMealName:", forControlEvents: .EditingChanged)
+                (cell as! EditableTextTableViewCell).txtField.keyboardType = .Default
+                (cell as! EditableTextTableViewCell).txtField.autocorrectionType = .Yes
+                (cell as! EditableTextTableViewCell).txtField.autocapitalizationType = .Sentences
+            }
         case (0, 1):
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-            cell.textLabel!.text = "Date and time"
-            cell.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
+            cell = createTableViewCell(indexPath, leftText: "Date and Time", rightText: NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle), tag: 1001)
         case (0, 2):
             cell = tableView.dequeueReusableCellWithIdentifier("DateTimePickerTableViewCell", forIndexPath: indexPath)
+            cell.tag = 1002
             let dateTimePicker: UIDatePicker = (cell as! DateTimePickerTableViewCell).dateTimePicker
             dateTimePicker.maximumDate = NSDate()
             dateTimePicker.addTarget(self, action: "didChangeDate:", forControlEvents: UIControlEvents.ValueChanged)
@@ -123,101 +159,72 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
-            cell = createEditableTableViewCell(indexPath, labelText: "Serving Size", value: formatter.stringFromNumber(meal!.serving)!)
+            
+            if editMode == .Add {
+                cell = createEditableTableViewCell(indexPath, leftText: "Serving Size", rightText: formatter.stringFromNumber(meal!.serving)!, tag: 1003)
+                (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editServingSize:", forControlEvents: .EditingChanged)
+                (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
+            } else {
+                cell = createEditableTableViewCell(indexPath, leftText: "Typical Serving Size", rightText: formatter.stringFromNumber(meal!.serving)!, tag: 1003)
+                (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editTypicalServingSize:", forControlEvents: .EditingChanged)
+                (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
+            }
         case (1, 0):
-            cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-            cell.textLabel!.text = "Reference Serving Size"
             let formatter = NSNumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
-            cell.detailTextLabel!.text = formatter.stringFromNumber(meal!.referenceServing)
-        default:
+            
             if editMode == .Add {
-                cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-                let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
-                let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
-                
-                cell.textLabel!.text = fact.description
-                
-                let formatter = NSNumberFormatter()
-                formatter.minimumIntegerDigits = 1
-                formatter.minimumFractionDigits = 0
-                formatter.maximumFractionDigits = 2
-                cell.detailTextLabel!.text = "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())"
+                cell = createTableViewCell(indexPath, leftText: "Reference Serving Size", rightText: formatter.stringFromNumber(meal!.referenceServing)!, tag: 2000)
             } else {
-                let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
-                let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
-                
-                let formatter = NSNumberFormatter()
-                formatter.minimumIntegerDigits = 1
-                formatter.minimumFractionDigits = 0
-                formatter.maximumFractionDigits = 2
-                
-                cell = createTableViewCell(indexPath, labelText: fact.fullDescription(), detail: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!)")
+                cell = createEditableTableViewCell(indexPath, leftText: "Reference Serving Size", rightText: formatter.stringFromNumber(meal!.referenceServing)!, tag: 2000)
+                (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editReferenceServingSize:", forControlEvents: .EditingChanged)
+                (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
             }
+        case (1, _): // Nutrition Facts
+            let typeIdentifier: String = meal!.facts[indexPath.row - 1].typeIdentifier
+            let fact: HealthKitManager.TypeInfo = HealthKitManager.types[typeIdentifier]!
+            let formatter = NSNumberFormatter()
+            formatter.minimumIntegerDigits = 1
+            formatter.minimumFractionDigits = 0
+            formatter.maximumFractionDigits = 3
+            
+            if editMode == .Add {
+                cell = createTableViewCell(indexPath, leftText: fact.description, rightText: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())", tag: indexPath.row - 1)
+            } else {
+                let value = meal!.facts[indexPath.row - 1].value
+                
+                cell = createEditableTableViewCell(indexPath, leftText: fact.fullDescription(), rightText: value > 0 ? formatter.stringFromNumber(value)! : "", tag: indexPath.row - 1)
+                (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editNutritionFact:", forControlEvents: .EditingChanged)
+                (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
+            }
+        default:
+            cell = UITableViewCell()
+            print("defaulting!")
         }
         
         return cell
     }
     
-    func createTableViewCell(indexPath: NSIndexPath, labelText: String, detail: String) -> UITableViewCell {
+    func createTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-        cell.textLabel!.text = labelText
-        cell.detailTextLabel!.text = detail
+        cell.tag = tag
+        cell.textLabel!.text = leftText
+        cell.detailTextLabel!.text = rightText
+        cell.detailTextLabel!.font = cell.textLabel!.font
         return cell
     }
     
-    func createEditableTableViewCell(indexPath: NSIndexPath, labelText: String, value: String) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
-        
-        /*cell.detailTextLabel!.hidden = true
-        
-        let textField: UITextField = UITextField()
-        textField.tag = indexPath.section * 1000 + indexPath.row
-        textField.enablesReturnKeyAutomatically = true
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .None
-        textField.textAlignment = .Right
-        textField.text = "100"
-        
-        cell.contentView.addSubview(textField)
-        
-        let cellBounds: CGRect = cell.bounds
-        let textFieldBorder: CGFloat = cell.textLabel!.bounds.width + 100
-        let aRect: CGRect = CGRectMake(textFieldBorder, 0, CGRectGetWidth(cellBounds)-textFieldBorder-cell.textLabel!.bounds.minX, cellBounds.height)
-        
-        textField.frame = aRect
-        
-        // Configure UITextAttributes for each field
-            textField.placeholder = "Name"
-            textField.returnKeyType = UIReturnKeyType.Next
-            textField.autocapitalizationType = UITextAutocapitalizationType.Words
-        */
-        cell.textLabel!.text = labelText
-        cell.detailTextLabel!.hidden = true
-        cell.removeFromSuperview()
-        
-        cell.viewWithTag(indexPath.section * 1000 + indexPath.row)?.removeFromSuperview()
-        
-        let textField: UITextField = UITextField()
-        textField.tag = indexPath.section * 1000 + indexPath.row;
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        cell.contentView.addSubview(textField)
-        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: cell.textLabel, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 8))
-        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 8))
-        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: -8))
-        cell.addConstraint(NSLayoutConstraint(item: textField, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: cell.detailTextLabel, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0))
-        
-        textField.textAlignment = NSTextAlignment.Right;
-        textField.keyboardType = UIKeyboardType.DecimalPad
-        
-        textField.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: UIControlEvents.EditingChanged)
-        
-        textField.delegate = self
-        
-        textField.text = value
-
+    
+    func createEditableTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("EditableTextTableViewCell", forIndexPath: indexPath) as! EditableTextTableViewCell
+        cell.tag = 2000 + tag
+        cell.label.text = leftText
+        cell.txtField.delegate = self
+        cell.txtField.text = rightText
+        cell.txtField.font = cell.label.font
+        cell.txtField.tag = tag
         return cell
     }
     
@@ -239,13 +246,27 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
-        meal!.serving = Double(textField.text!) ?? 0
-        let newValue: NSNumber = NSNumberFormatter().numberFromString(textField.text!) ?? 0
-        meal!.serving = newValue.doubleValue
-        
+    func editServingSize(textField: UITextField) {
+        meal!.serving = (NSNumberFormatter().numberFromString(textField.text!) ?? 0).doubleValue
         tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
+    
+    func editMealName(textField: UITextField) {
+        meal!.name = textField.text ?? ""
+    }
+    
+    func editTypicalServingSize(textField: UITextField) {
+        meal!.serving = (NSNumberFormatter().numberFromString(textField.text!) ?? 0).doubleValue
+    }
+    
+    func editReferenceServingSize(textField: UITextField) {
+        meal!.referenceServing = (NSNumberFormatter().numberFromString(textField.text!) ?? 0).doubleValue
+    }
+    
+    func editNutritionFact(textField: UITextField) {
+        meal!.facts[textField.tag].value = (NSNumberFormatter().numberFromString(textField.text!) ?? 0).doubleValue
+    }
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -284,11 +305,13 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
 
     // MARK: Navigation
     @IBAction func cancel(sender: UIBarButtonItem) {
+        //print("cancel")
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //print("prepareForSegue")
         if sender === rightBarButton {
             if editMode == .Add {
                 meal!.timestamp = date
@@ -300,6 +323,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Actions
     @IBAction func didChangeDate(sender: UIDatePicker) {
+        //print("didChangeDate")
         date = sender.date
     }
 }
