@@ -133,8 +133,8 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
             // Delete the row from the data source
             mealCategories[indexPath.section].meals.removeAtIndex(indexPath.row)
             if mealCategories[indexPath.section].meals.isEmpty {
-                mealCategories.removeAtIndex(indexPath.section)
                 tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
+                mealCategories.removeAtIndex(indexPath.section)
             } else {
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
@@ -146,21 +146,20 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
         return mealCategories[section].name
     }
     
-    /*
-    // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+        mealCategories[toIndexPath.section].meals.insert(mealCategories[fromIndexPath.section].meals.removeAtIndex(fromIndexPath.row), atIndex: toIndexPath.row)
+        mealCategories[toIndexPath.section].meals[toIndexPath.row].category = mealCategories[toIndexPath.section].name
+        
+        if mealCategories[fromIndexPath.section].meals.isEmpty {
+            mealCategories.removeAtIndex(fromIndexPath.section)
+        }
+        saveMealCategories()
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
+    
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
-
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -258,6 +257,14 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
             }
         }
     }
+    
+    /*@IBAction func hadleLongPressOnMeal(sender: AnyObject) {
+        if sender.state == UIGestureRecognizerState.Began {
+            let ac = UIAlertController(title: "NImpl", message: "Editing on long press not yet implemented", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(ac, animated: true, completion: nil)
+        }
+    }*/
     
     // MARK: NSCoding
     func saveMealCategories() {

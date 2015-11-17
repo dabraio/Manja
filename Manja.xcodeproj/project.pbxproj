@@ -10,6 +10,9 @@
 		602C0D901BEEC49D002F8646 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602C0D8F1BEEC49D002F8646 /* HealthKit.framework */; };
 		602C0D941BEEC7E0002F8646 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C0D931BEEC7E0002F8646 /* HealthKitManager.swift */; };
 		602C0D951BEEC7E0002F8646 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C0D931BEEC7E0002F8646 /* HealthKitManager.swift */; };
+		6069D2A61BF94F7F003E4912 /* NutritionFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDA2961BF8D14600681C21 /* NutritionFact.swift */; };
+		6069D2A71BF94F87003E4912 /* TypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDA2941BF8CF1600681C21 /* TypeInfo.swift */; };
+		6069D2A81BF94F90003E4912 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDA2921BF8CBD200681C21 /* Category.swift */; };
 		60ABD5791BEFFF0D002EAE2F /* DateTimePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ABD5781BEFFF0D002EAE2F /* DateTimePickerTableViewCell.swift */; };
 		60B8A5981BF7D8D600E1CABA /* EditableTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B8A5971BF7D8D600E1CABA /* EditableTextTableViewCell.swift */; };
 		60BB3EAD1BED733D009C1197 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3EAC1BED733D009C1197 /* AppDelegate.swift */; };
@@ -272,9 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6069D2A61BF94F7F003E4912 /* NutritionFact.swift in Sources */,
 				60ED10CE1BEE61A300E7567B /* Meal.swift in Sources */,
+				6069D2A71BF94F87003E4912 /* TypeInfo.swift in Sources */,
 				60BB3EC21BED733E009C1197 /* ManjaTests.swift in Sources */,
 				602C0D951BEEC7E0002F8646 /* HealthKitManager.swift in Sources */,
+				6069D2A81BF94F90003E4912 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
