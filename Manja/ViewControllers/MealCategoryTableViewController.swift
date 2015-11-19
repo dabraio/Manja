@@ -28,8 +28,6 @@ class MealCategoryTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -49,20 +47,16 @@ class MealCategoryTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .None
+        return MealCatalog.categoryAt(indexPath.row).meals.isEmpty ? .Delete : .None
     }
     
-    /*
-    // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
+            MealCatalog.removeCategory(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            MealCatalog.saveData()
+        }
     }
-    */
 
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
         //let category = MealCatalog.removeCategory(fromIndexPath.row)
@@ -76,14 +70,38 @@ class MealCategoryTableViewController: UITableViewController {
         return true
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.editing {
+            let oldName = MealCatalog.categoryName(indexPath.row)
+            let alertController = UIAlertController(title: oldName, message: "Please enter a new name:", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                let newName = alertController.textFields!.first!.text!
+                if !newName.isEmpty {
+                    MealCatalog.categoryAt(indexPath.row).changeCategoryName(newName)
+                    MealCatalog.saveData()
+                    tableView.reloadData()
+                }
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            alertController.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+                textField.text! = oldName
+            })
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
-    */
-
+    
+    @IBAction func addCategory(sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "New Category", message: "Please enter a name:", preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            let newName = alertController.textFields!.first!.text!
+            if !newName.isEmpty {
+                MealCatalog.addCategory(Category(name: newName, meals: []))
+                MealCatalog.saveData()
+                self.tableView.reloadData()
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
 }

@@ -98,7 +98,14 @@
                             <outlet property="delegate" destination="eiI-Q9-w13" id="9Nc-ao-5Rx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Categories" id="mTt-UA-c05"/>
+                    <navigationItem key="navigationItem" title="Categories" id="mTt-UA-c05">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="SS3-fO-6wK">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="addCategory:" destination="eiI-Q9-w13" id="65u-EJ-lfG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fss-wJ-TxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

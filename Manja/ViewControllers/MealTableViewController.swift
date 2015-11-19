@@ -138,14 +138,14 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            if editMode == .Add {
-                cell = createTableViewCell(indexPath, leftText: "Category", rightText: meal!.category, tag: 1000)
-            } else {
+            if editMode == .New {
                 cell = createEditableTableViewCell(indexPath, leftText: "Category", rightText: meal!.category, tag: 1000)
                 (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editMealCategory:", forControlEvents: .EditingChanged)
                 (cell as! EditableTextTableViewCell).txtField.keyboardType = .Default
                 (cell as! EditableTextTableViewCell).txtField.autocorrectionType = .Yes
                 (cell as! EditableTextTableViewCell).txtField.autocapitalizationType = .Sentences
+            } else {
+                cell = createTableViewCell(indexPath, leftText: "Category", rightText: meal!.category, tag: 1000)
             }
         case (0, 1):
             if editMode == .Add {

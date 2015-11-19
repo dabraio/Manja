@@ -94,12 +94,12 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
         if editingStyle == .Delete {
             // Delete the row from the data source
             MealCatalog.removeMeal(indexPath)
-            if MealCatalog.categoryAt(indexPath.section).meals.isEmpty {
+            /*if MealCatalog.categoryAt(indexPath.section).meals.isEmpty {
                 tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
                 MealCatalog.removeCategory(indexPath.section)
-            } else {
+            } else {*/
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
+            //}
             MealCatalog.saveData()
         }
     }
@@ -112,9 +112,9 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
         MealCatalog.insertMeal(MealCatalog.removeMeal(fromIndexPath), atIndexPath: toIndexPath)
         MealCatalog.meal(toIndexPath).category = MealCatalog.categoryName(toIndexPath.section)
         
-        if MealCatalog.categoryAt(fromIndexPath.section).meals.isEmpty {
+        /*if MealCatalog.categoryAt(fromIndexPath.section).meals.isEmpty {
             MealCatalog.removeCategory(fromIndexPath.section)
-        }
+        }*/
         MealCatalog.saveData()
         tableView.reloadData()
     }
@@ -159,7 +159,7 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
                 meal.sendToHealth()
             case .Edit:
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                    meal.category = meal.category.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    //meal.category = meal.category.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     var cleanedFacts: [NutritionFact] = []
                     for fact in meal.facts {
                         if fact.value != 0 {
@@ -167,12 +167,12 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
                         }
                     }
                     meal.facts = cleanedFacts
-                    let oldMeal = MealCatalog.meal(selectedIndexPath)
+                    //let oldMeal = MealCatalog.meal(selectedIndexPath)
                     
-                    if meal.category == oldMeal.category {
+                    //if meal.category == oldMeal.category {
                         MealCatalog.swapMeal(meal, atIndexPath: selectedIndexPath)
                         tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .Fade)
-                    } else {
+                    /*} else {
                         MealCatalog.removeMeal(selectedIndexPath)
                         if MealCatalog.categoryAt(selectedIndexPath.section).meals.isEmpty {
                             MealCatalog.removeCategory(selectedIndexPath.section)
@@ -190,7 +190,7 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
                             MealCatalog.addCategory(Category(name: meal.category, meals: [meal]))
                         }
                         tableView.reloadData()
-                    }
+                    }*/
                     MealCatalog.saveData()
                 }
             case .New:

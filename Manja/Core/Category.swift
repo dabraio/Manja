@@ -29,6 +29,14 @@ class Category: NSObject, NSCoding {
         super.init()
     }
     
+    // MARK: Methods
+    func changeCategoryName(toName: String) {
+        name = toName
+        for meal in meals {
+            meal.category = toName
+        }
+    }
+    
     // MARK: NSCoding
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(name, forKey: PropertyKey.name)
