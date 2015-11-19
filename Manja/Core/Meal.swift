@@ -6,7 +6,7 @@
 //  Copyright © 2015 Faustino Dabraio da Silva. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class Meal: NSObject, NSCopying, NSCoding {
     // MARK: Types

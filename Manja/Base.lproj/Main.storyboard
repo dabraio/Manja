@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f6c-A2-JUO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jud-p7-2Vo">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -56,16 +56,76 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="REu-q0-zlV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="321" y="350"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Categories-->
+        <scene sceneID="wpj-wt-kv7">
+            <objects>
+                <tableViewController id="eiI-Q9-w13" userLabel="Categories" customClass="MealCategoryTableViewController" customModule="Manja" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zaC-DK-YtJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MealCategoryTableViewCell" textLabel="dvJ-E1-Lid" style="IBUITableViewCellStyleDefault" id="T6f-LA-8RP">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T6f-LA-8RP" id="4ve-EF-vtB">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dvJ-E1-Lid">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eiI-Q9-w13" id="1Gg-mp-wLd"/>
+                            <outlet property="delegate" destination="eiI-Q9-w13" id="9Nc-ao-5Rx"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Categories" id="mTt-UA-c05"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fss-wJ-TxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="349" y="1288"/>
+        </scene>
+        <!--Categories-->
+        <scene sceneID="maP-GJ-H7g">
+            <objects>
+                <navigationController id="tJa-Ki-wVC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Categories" image="Categories Unselected" selectedImage="Categories Selected" id="YCt-sj-HfM"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CDx-q9-LKL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="eiI-Q9-w13" kind="relationship" relationship="rootViewController" id="4z9-7m-V0Y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hS4-88-GIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-467" y="1288"/>
+        </scene>
+        <!--Meals-->
         <scene sceneID="ZOY-tb-Oav">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f6c-A2-JUO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Meals" image="Meal Unselected" selectedImage="Meal Selected" id="V2r-Vh-mVs"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Ly-vj-izh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -80,6 +140,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28a-WI-89w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-491" y="350"/>
+        </scene>
+        <!--Manja-->
+        <scene sceneID="Pvd-kq-pug">
+            <objects>
+                <tabBarController title="Manja" id="Jud-p7-2Vo" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" itemPositioning="centered" id="afw-mN-fnc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="f6c-A2-JUO" kind="relationship" relationship="viewControllers" id="SMX-5b-WN4"/>
+                        <segue destination="tJa-Ki-wVC" kind="relationship" relationship="viewControllers" id="sKX-jw-w2j"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FtG-Wo-2Pt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1483" y="830"/>
         </scene>
         <!--Meal-->
         <scene sceneID="oYf-1K-qPx">
@@ -236,7 +320,14 @@
             <point key="canvasLocation" x="1205" y="-181"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Categories Selected" width="25" height="25"/>
+        <image name="Categories Unselected" width="25" height="25"/>
+        <image name="Meal Selected" width="25" height="25"/>
+        <image name="Meal Unselected" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="64B-a6-hCW"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
