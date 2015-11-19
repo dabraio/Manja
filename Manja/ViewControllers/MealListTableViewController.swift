@@ -22,6 +22,7 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
         super.viewDidLoad()
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem!.tintColor = .whiteColor()
         // Load any saved meals, otherwise load sample data.
         MealCatalog.loadData()
         

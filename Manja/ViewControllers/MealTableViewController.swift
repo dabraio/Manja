@@ -37,12 +37,10 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func dateChanged() {
-        //print("dateChanged")
         tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
     }
     
     override func viewDidLoad() {
-        //print("viewDidLoad")
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations

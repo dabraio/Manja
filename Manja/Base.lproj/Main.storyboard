@@ -51,6 +51,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Manja" id="4WC-pa-ia2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6W6-Uo-jSx">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="HKH-dd-KR4" kind="presentation" identifier="NewMeal" id="xtp-wL-7GY"/>
                             </connections>
@@ -282,11 +283,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Meal" id="17n-Zt-otg">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ke8-bQ-3MQ">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancel:" destination="IgK-Rw-ebi" id="D2T-bF-Ylb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Z4n-1V-HfS">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="px8-hz-jag" kind="unwind" unwindAction="unwindToMealList:" id="gKw-BX-hHk"/>
                             </connections>
@@ -332,5 +335,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="64B-a6-hCW"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

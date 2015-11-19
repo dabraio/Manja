@@ -10,11 +10,17 @@ import UIKit
 
 class MealCategoryTableViewController: UITableViewController {
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem!.tintColor = .whiteColor()
     }
 
     override func didReceiveMemoryWarning() {
