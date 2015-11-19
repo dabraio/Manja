@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		602188881BFD3976004B6680 /* Containers in Resources */ = {isa = PBXBuildFile; fileRef = 602188871BFD3976004B6680 /* Containers */; };
 		602C0D901BEEC49D002F8646 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602C0D8F1BEEC49D002F8646 /* HealthKit.framework */; };
 		602C0D941BEEC7E0002F8646 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C0D931BEEC7E0002F8646 /* HealthKitManager.swift */; };
 		602C0D951BEEC7E0002F8646 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C0D931BEEC7E0002F8646 /* HealthKitManager.swift */; };
@@ -43,7 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		602188871BFD3976004B6680 /* Containers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Containers; path = Manja/Containers; sourceTree = "<group>"; };
 		602C0D8F1BEEC49D002F8646 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		602C0D911BEEC49D002F8646 /* Manja.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Manja.entitlements; sourceTree = "<group>"; };
 		602C0D931BEEC7E0002F8646 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 		60BB3EA01BED733D009C1197 = {
 			isa = PBXGroup;
 			children = (
-				602188871BFD3976004B6680 /* Containers */,
 				602C0D8F1BEEC49D002F8646 /* HealthKit.framework */,
 				60BB3EAB1BED733D009C1197 /* Manja */,
 				60BB3EC01BED733E009C1197 /* ManjaTests */,
@@ -243,7 +240,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				602188881BFD3976004B6680 /* Containers in Resources */,
 				60BB3EB71BED733E009C1197 /* LaunchScreen.storyboard in Resources */,
 				60BB3EB41BED733E009C1197 /* Assets.xcassets in Resources */,
 				60BB3EB21BED733E009C1197 /* Main.storyboard in Resources */,

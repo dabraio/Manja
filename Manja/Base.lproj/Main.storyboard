@@ -108,10 +108,11 @@
             <objects>
                 <navigationController id="tJa-Ki-wVC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Categories" image="Categories Unselected" selectedImage="Categories Selected" id="YCt-sj-HfM"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CDx-q9-LKL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CDx-q9-LKL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="barTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="eiI-Q9-w13" kind="relationship" relationship="rootViewController" id="4z9-7m-V0Y"/>
@@ -127,10 +128,11 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f6c-A2-JUO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Meals" image="Meal Unselected" selectedImage="Meal Selected" id="V2r-Vh-mVs"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Ly-vj-izh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="1Ly-vj-izh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="barTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -305,10 +307,11 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HKH-dd-KR4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fsH-RS-7SF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="fsH-RS-7SF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="barTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -329,5 +332,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="64B-a6-hCW"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
