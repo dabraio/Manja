@@ -130,6 +130,9 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
                 cell.txtField.removeTarget(self, action: "editNutritionFact:", forControlEvents: .EditingChanged)
             }
         }
+        if let _ = cell.imageView?.image {
+            cell.imageView!.image = nil
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -203,7 +206,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             formatter.maximumFractionDigits = 3
             
             if editMode == .Add {
-                cell = createTableViewCell(indexPath, leftText: fact.shortDescription, rightText: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())", tag: indexPath.row - 1)
+                cell = createTableViewCell(indexPath, leftText: fact.shortDescription, rightText: "\(formatter.stringFromNumber(meal!.newValueForTypeAtPosition(indexPath.row - 1))!) \(fact.unitDescription())", tag: indexPath.row - 1, imageName: fact.imageName)
             } else {
                 let value = meal!.facts[indexPath.row - 1].value
                 
@@ -219,17 +222,32 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         return cell
     }
     
-    func createTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int) -> UITableViewCell {
+    func createTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int, imageName: String?) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FixedTextTableViewCell", forIndexPath: indexPath)
         cell.tag = tag
         cell.textLabel!.text = leftText
         cell.detailTextLabel!.text = rightText
         cell.detailTextLabel!.font = cell.textLabel!.font
+        addImageToCell(cell, imageName: imageName)
         return cell
     }
     
+    func addImageToCell(cell: UITableViewCell, imageName: String?) {
+        if imageName != nil {
+            if let image = UIImage(named: imageName!) {
+                cell.imageView?.image = image
+            } else {
+                let image = UIImage(named: "HKQuantityTypeIdentifierAutomatic")
+                cell.imageView?.image = image
+            }
+        }
+    }
     
-    func createEditableTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int) -> UITableViewCell {
+    func createTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int) -> UITableViewCell {
+        return createTableViewCell(indexPath, leftText: leftText, rightText: rightText, tag: tag, imageName: nil)
+    }
+    
+    func createEditableTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int, imageName: String?) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("EditableTextTableViewCell", forIndexPath: indexPath) as! EditableTextTableViewCell
         cell.tag = 2000 + tag
         cell.label.text = leftText
@@ -237,7 +255,12 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         cell.txtField.text = rightText
         cell.txtField.font = cell.label.font
         cell.txtField.tag = tag
+        addImageToCell(cell, imageName: imageName)
         return cell
+    }
+    
+    func createEditableTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int) -> UITableViewCell {
+        return createEditableTableViewCell(indexPath, leftText: leftText, rightText: rightText, tag: tag, imageName: nil)
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

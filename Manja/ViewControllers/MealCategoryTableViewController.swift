@@ -85,6 +85,7 @@ class MealCategoryTableViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
             alertController.addTextFieldWithConfigurationHandler({ (textField) -> Void in
                 textField.text! = oldName
+                textField.clearButtonMode = .WhileEditing
             })
             self.presentViewController(alertController, animated: true, completion: nil)
         }
