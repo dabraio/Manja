@@ -111,7 +111,7 @@ class HealthKitManager {
         
         // 3. If the store is not available (for instance, iPad) return an error and don't go on.
         if !HKHealthStore.isHealthDataAvailable() {
-            return false;
+            return false
         }
         
         // 4.  Request HealthKit authorization

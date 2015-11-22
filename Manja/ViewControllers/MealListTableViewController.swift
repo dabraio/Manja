@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MealListTableViewController: UITableViewController/*, UISearchResultsUpdating*/ {
+class MealListTableViewController: UITableViewController, UISearchResultsUpdating {
     // MARK: Properties
     var filteredMealCategories: [Category] = [Category]()
     var resultSearchController = UISearchController()
@@ -26,7 +26,7 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
         // Load any saved meals, otherwise load sample data.
         MealCatalog.loadData()
         
-        /*self.resultSearchController = ({
+        self.resultSearchController = ({
             let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
             controller.dimsBackgroundDuringPresentation = false
@@ -35,9 +35,9 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
             self.tableView.tableHeaderView = controller.searchBar
             
             return controller
-        })()*/
+        })()
         
-        //tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -94,27 +94,23 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
         if editingStyle == .Delete {
             // Delete the row from the data source
             MealCatalog.removeMeal(indexPath)
-            /*if MealCatalog.categoryAt(indexPath.section).meals.isEmpty {
-                tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
-                MealCatalog.removeCategory(indexPath.section)
-            } else {*/
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            //}
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             MealCatalog.saveData()
         }
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return MealCatalog.categoryName(section)
+        if (self.resultSearchController.active) {
+            return filteredMealCategories[section].name
+        } else {
+            return MealCatalog.categoryName(section)
+        }
     }
     
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
         MealCatalog.insertMeal(MealCatalog.removeMeal(fromIndexPath), atIndexPath: toIndexPath)
         MealCatalog.meal(toIndexPath).category = MealCatalog.categoryName(toIndexPath.section)
         
-        /*if MealCatalog.categoryAt(fromIndexPath.section).meals.isEmpty {
-            MealCatalog.removeCategory(fromIndexPath.section)
-        }*/
         MealCatalog.saveData()
         tableView.reloadData()
     }
@@ -159,7 +155,6 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
                 meal.sendToHealth()
             case .Edit:
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                    //meal.category = meal.category.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     var cleanedFacts: [NutritionFact] = []
                     for fact in meal.facts {
                         if fact.value != 0 {
@@ -167,30 +162,8 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
                         }
                     }
                     meal.facts = cleanedFacts
-                    //let oldMeal = MealCatalog.meal(selectedIndexPath)
-                    
-                    //if meal.category == oldMeal.category {
-                        MealCatalog.swapMeal(meal, atIndexPath: selectedIndexPath)
-                        tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .Fade)
-                    /*} else {
-                        MealCatalog.removeMeal(selectedIndexPath)
-                        if MealCatalog.categoryAt(selectedIndexPath.section).meals.isEmpty {
-                            MealCatalog.removeCategory(selectedIndexPath.section)
-                        }
-                        var mealCategoryIndex: Int = -1
-                        for x in 0 ..< MealCatalog.categoryCount() {
-                            if MealCatalog.categoryName(x) == meal.category {
-                                mealCategoryIndex = x
-                                break
-                            }
-                        }
-                        if mealCategoryIndex > -1 {
-                            MealCatalog.addMeal(meal, atCategoryIndex: mealCategoryIndex)
-                        } else {
-                            MealCatalog.addCategory(Category(name: meal.category, meals: [meal]))
-                        }
-                        tableView.reloadData()
-                    }*/
+                    MealCatalog.swapMeal(meal, atIndexPath: selectedIndexPath)
+                    tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .Fade)
                     MealCatalog.saveData()
                 }
             case .New:
@@ -220,26 +193,16 @@ class MealListTableViewController: UITableViewController/*, UISearchResultsUpdat
         }
     }
     
-    /*@IBAction func hadleLongPressOnMeal(sender: AnyObject) {
-        if sender.state == UIGestureRecognizerState.Began {
-            let ac = UIAlertController(title: "NImpl", message: "Editing on long press not yet implemented", preferredStyle: .Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(ac, animated: true, completion: nil)
-        }
-    }*/
-    
     // MARK: UISearchResultsUpdating
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filteredMealCategories.removeAll(keepCapacity: false)
-        
         for category in MealCatalog.categories() {
-            let searchPredicate = NSPredicate(format: "name contains[cd] %@", searchController.searchBar.text!)
+            let searchPredicate = NSPredicate(format: "name contains[cd] %@ or category contains[cd] %@", searchController.searchBar.text!, searchController.searchBar.text!)
             let resultsArray = (category.meals as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Meal]
             if !resultsArray.isEmpty {
                 filteredMealCategories.append(Category(name: category.name, meals: resultsArray))
             }
         }
-        
         self.tableView.reloadData()
     }
 }
