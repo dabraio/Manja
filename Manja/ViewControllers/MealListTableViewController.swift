@@ -31,6 +31,8 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
             controller.searchResultsUpdater = self
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
+            controller.searchBar.autocapitalizationType = .Sentences
+            controller.searchBar.autocorrectionType = .Yes
             
             self.tableView.tableHeaderView = controller.searchBar
             
@@ -197,7 +199,8 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filteredMealCategories.removeAll(keepCapacity: false)
         for category in MealCatalog.categories() {
-            let searchPredicate = NSPredicate(format: "name contains[cd] %@ or category contains[cd] %@", searchController.searchBar.text!, searchController.searchBar.text!)
+            let searchTerm = searchController.searchBar.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let searchPredicate = NSPredicate(format: "name contains[cd] %@ or category contains[cd] %@", searchTerm, searchTerm)
             let resultsArray = (category.meals as NSArray).filteredArrayUsingPredicate(searchPredicate) as! [Meal]
             if !resultsArray.isEmpty {
                 filteredMealCategories.append(Category(name: category.name, meals: resultsArray))
