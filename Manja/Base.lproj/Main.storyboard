@@ -179,13 +179,13 @@
         <scene sceneID="oYf-1K-qPx">
             <objects>
                 <tableViewController id="IgK-Rw-ebi" customClass="MealTableViewController" customModule="Manja" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="kqf-Zd-1XI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="kqf-Zd-1XI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FixedTextTableViewCell" textLabel="vES-HT-dw9" detailTextLabel="H6b-kb-w52" style="IBUITableViewCellStyleValue1" id="Cfg-Wq-BBF">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FixedTextTableViewCell" textLabel="vES-HT-dw9" detailTextLabel="H6b-kb-w52" style="IBUITableViewCellStyleValue1" id="Cfg-Wq-BBF">
                                 <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cfg-Wq-BBF" id="crO-IT-7p0">
@@ -243,7 +243,7 @@
                                     <outlet property="dateTimePicker" destination="MD7-Uw-WsS" id="Ivy-Aj-3M1"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EditableTextTableViewCell" id="cc0-XX-Flu" customClass="EditableTextTableViewCell" customModule="Manja" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditableTextTableViewCell" id="cc0-XX-Flu" customClass="EditableTextTableViewCell" customModule="Manja" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="378" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cc0-XX-Flu" id="2KL-Jd-EZQ">
@@ -279,6 +279,56 @@
                                 <connections>
                                     <outlet property="label" destination="L4R-xM-CLW" id="XbP-Li-64S"/>
                                     <outlet property="txtField" destination="F1z-Y5-2t1" id="ANa-CN-34M"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditableImageTextTableViewCell" id="mEV-yL-stW" customClass="EditableTextTableViewCell" customModule="Manja" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="422" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mEV-yL-stW" id="l8e-AJ-XTv">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btt-9d-chW">
+                                            <rect key="frame" x="56" y="12" width="40" height="20"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8rD-if-Qgu">
+                                            <rect key="frame" x="104" y="9" width="480" height="26"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Phe-Ff-DoR">
+                                            <rect key="frame" x="16" y="10" width="25" height="24"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="ZK3-Gv-VRK"/>
+                                                <constraint firstAttribute="width" constant="25" id="ze7-L1-xdz"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="btt-9d-chW" firstAttribute="leading" secondItem="Phe-Ff-DoR" secondAttribute="trailing" constant="15" id="8Ep-Z6-sRy"/>
+                                        <constraint firstAttribute="bottom" secondItem="Phe-Ff-DoR" secondAttribute="bottom" constant="9" id="AoA-99-VO2"/>
+                                        <constraint firstItem="btt-9d-chW" firstAttribute="top" secondItem="l8e-AJ-XTv" secondAttribute="top" constant="12" id="Azs-hF-373"/>
+                                        <constraint firstAttribute="bottom" secondItem="btt-9d-chW" secondAttribute="bottom" constant="11" id="SJ9-Vf-ApN"/>
+                                        <constraint firstAttribute="bottom" secondItem="8rD-if-Qgu" secondAttribute="bottom" constant="8" id="ePb-LM-Tbq"/>
+                                        <constraint firstItem="8rD-if-Qgu" firstAttribute="top" secondItem="l8e-AJ-XTv" secondAttribute="top" constant="9" id="eSI-mm-p2J"/>
+                                        <constraint firstItem="Phe-Ff-DoR" firstAttribute="top" secondItem="l8e-AJ-XTv" secondAttribute="top" constant="10" id="hVg-Rj-5Ht"/>
+                                        <constraint firstAttribute="trailing" secondItem="8rD-if-Qgu" secondAttribute="trailing" constant="16" id="r64-Xa-2Qi"/>
+                                        <constraint firstItem="8rD-if-Qgu" firstAttribute="leading" secondItem="btt-9d-chW" secondAttribute="trailing" constant="8" id="yy6-IY-QRa"/>
+                                        <constraint firstItem="Phe-Ff-DoR" firstAttribute="leading" secondItem="l8e-AJ-XTv" secondAttribute="leading" constant="16" id="zoV-87-8Zq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="imgView" destination="Phe-Ff-DoR" id="W90-ze-z8w"/>
+                                    <outlet property="label" destination="btt-9d-chW" id="XtI-if-MiO"/>
+                                    <outlet property="txtField" destination="8rD-if-Qgu" id="BMq-RY-ZqD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

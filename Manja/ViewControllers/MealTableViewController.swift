@@ -73,13 +73,10 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //print("numberOfSectionsInTableView")
         return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print("tableView-numberOfRowsInSection")
-        // #warning Incomplete implementation, return the number of rows
         switch section {
         case 0:
             return 5
@@ -91,19 +88,18 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //print("tableView-didSelectRowAtIndexPath at " + String(indexPath.section) + "," + String(indexPath.row) + "")
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
             toggleDatePicker()
-        /*case (0, 4):
-            (tableView.cellForRowAtIndexPath(indexPath) as! EditableTextTableViewCell).valueTextField.becomeFirstResponder()*/
         default:
-            ()
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? EditableTextTableViewCell {
+                cell.txtField.becomeFirstResponder()
+            }
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        //print("tableView-heightForRowAtIndexPath at " + String(indexPath.section) + "," + String(indexPath.row) + "")
         switch (indexPath.section, indexPath.row, editMode) {
         case (0, 2, .New):
             return 0
@@ -215,7 +211,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             } else {
                 let value = meal!.facts[indexPath.row - 1].value
                 
-                cell = createEditableTableViewCell(indexPath, leftText: fact.fullDescription(), rightText: value > 0 ? formatter.stringFromNumber(value)! : "", tag: indexPath.row - 1)
+                cell = createEditableTableViewCell(indexPath, leftText: fact.fullDescription(), rightText: value > 0 ? formatter.stringFromNumber(value)! : "", tag: indexPath.row - 1, imageName: fact.imageName)
                 (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editNutritionFact:", forControlEvents: .EditingChanged)
                 (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
             }
@@ -239,11 +235,18 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     
     func addImageToCell(cell: UITableViewCell, imageName: String?) {
         if imageName != nil {
+            var imgView: UIImageView
+            if cell.reuseIdentifier! == "EditableImageTextTableViewCell" {
+                imgView = (cell as! EditableTextTableViewCell).imgView!
+            } else {
+                imgView = cell.imageView!
+            }
+            
             if let image = UIImage(named: imageName!) {
-                cell.imageView?.image = image
+                imgView.image = image
             } else {
                 let image = UIImage(named: "HKQuantityTypeIdentifierAutomatic")
-                cell.imageView?.image = image
+                imgView.image = image
             }
         }
     }
@@ -253,7 +256,9 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func createEditableTableViewCell(indexPath: NSIndexPath, leftText: String, rightText: String, tag: Int, imageName: String?) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("EditableTextTableViewCell", forIndexPath: indexPath) as! EditableTextTableViewCell
+        let reusableIdentifier: String = imageName == nil ? "EditableTextTableViewCell" : "EditableImageTextTableViewCell"
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(reusableIdentifier, forIndexPath: indexPath) as! EditableTextTableViewCell
         cell.tag = 2000 + tag
         cell.label.text = leftText
         cell.txtField.delegate = self

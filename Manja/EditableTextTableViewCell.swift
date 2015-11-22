@@ -12,6 +12,7 @@ class EditableTextTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var txtField: UITextField!
+    @IBOutlet weak var imgView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
