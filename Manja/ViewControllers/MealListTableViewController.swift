@@ -61,7 +61,7 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
         if (self.resultSearchController.active) {
             return filteredMealCategories[section].meals.count
         } else {
-            return MealCatalog.categoryAt(section).meals.count
+            return MealCatalog.categoryAt(section)!.meals.count
         }
     }
     
@@ -147,6 +147,7 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
         } else if segue.identifier == "NewMeal" {
             mealViewController.editMode = .New
             mealViewController.meal = Meal()
+            mealViewController.meal?.category = MealCatalog.categoryAt(0)?.name ?? ""
         }
     }
 
@@ -164,8 +165,15 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
                         }
                     }
                     meal.facts = cleanedFacts
-                    MealCatalog.swapMeal(meal, atIndexPath: selectedIndexPath)
-                    tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .Fade)
+                    let oldMeal = MealCatalog.meal(selectedIndexPath)
+                    if meal.category == oldMeal.category {
+                        MealCatalog.swapMeal(meal, atIndexPath: selectedIndexPath)
+                        tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .Fade)
+                    } else {
+                        MealCatalog.removeMeal(selectedIndexPath)
+                        MealCatalog.addMeal(meal, atCategoryIndex: MealCatalog.categoryIndex(meal.category))
+                        tableView.reloadData()
+                    }
                     MealCatalog.saveData()
                 }
             case .New:
@@ -177,18 +185,7 @@ class MealListTableViewController: UITableViewController, UISearchResultsUpdatin
                     }
                 }
                 meal.facts = cleanedFacts
-                var mealCategoryIndex: Int = -1
-                for x in 0 ..< MealCatalog.categoryCount() {
-                    if MealCatalog.categoryName(x) == meal.category {
-                        mealCategoryIndex = x
-                        break
-                    }
-                }
-                if mealCategoryIndex > -1 {
-                    MealCatalog.addMeal(meal, atCategoryIndex: mealCategoryIndex)
-                } else {
-                    MealCatalog.addCategory(Category(name: meal.category, meals: [meal]))
-                }
+                MealCatalog.addMeal(meal, atCategoryIndex: MealCatalog.categoryIndex(meal.category))
                 tableView.reloadData()
                 MealCatalog.saveData()
             }

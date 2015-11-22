@@ -23,8 +23,20 @@ class MealCatalog {
         return mealCategories
     }
     
-    static func categoryAt(index: Int) -> Category {
-        return mealCategories[index]
+    static func categoryAt(index: Int) -> Category? {
+        if index > -1 && index < mealCategories.count {
+            return mealCategories[index]
+        }
+        return nil
+    }
+    
+    static func categoryIndex(categoryName: String) -> Int {
+        for i in 0..<mealCategories.count {
+            if mealCategories[i].name == categoryName {
+                return i
+            }
+        }
+        return -1
     }
     
     static func categoryCount() -> Int {

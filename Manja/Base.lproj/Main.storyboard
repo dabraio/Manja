@@ -331,6 +331,30 @@
                                     <outlet property="txtField" destination="8rD-if-Qgu" id="BMq-RY-ZqD"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PickerTableViewCell" rowHeight="220" id="aNa-c3-bE1" customClass="PickerTableViewCell" customModule="Manja" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="466" width="600" height="220"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aNa-c3-bE1" id="O9b-7b-jEe">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="219"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2eX-oV-9Y6">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="216"/>
+                                            <animations/>
+                                        </pickerView>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="2eX-oV-9Y6" secondAttribute="trailing" id="6Gx-WW-1gG"/>
+                                        <constraint firstItem="2eX-oV-9Y6" firstAttribute="leading" secondItem="O9b-7b-jEe" secondAttribute="leading" id="8Gn-1h-Iyy"/>
+                                        <constraint firstItem="2eX-oV-9Y6" firstAttribute="top" secondItem="O9b-7b-jEe" secondAttribute="top" id="y75-7U-kao"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="picker" destination="2eX-oV-9Y6" id="8bF-8O-x2c"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>

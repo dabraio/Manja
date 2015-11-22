@@ -47,7 +47,7 @@ class MealCategoryTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return MealCatalog.categoryAt(indexPath.row).meals.isEmpty ? .Delete : .None
+        return MealCatalog.categoryAt(indexPath.row)!.meals.isEmpty ? .Delete : .None
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -77,7 +77,7 @@ class MealCategoryTableViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 let newName = alertController.textFields!.first!.text!
                 if !newName.isEmpty {
-                    MealCatalog.categoryAt(indexPath.row).changeCategoryName(newName)
+                    MealCatalog.categoryAt(indexPath.row)!.changeCategoryName(newName)
                     MealCatalog.saveData()
                     tableView.reloadData()
                 }

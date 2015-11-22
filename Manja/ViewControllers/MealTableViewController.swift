@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MealTableViewController: UITableViewController, UITextFieldDelegate {
+class MealTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     enum EditMode {
         case Add, Edit, New
     }
@@ -23,6 +23,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     private var dateTimePickerVisible = false
+    private var categoryPickerVisible = false
     var editMode: EditMode = .Add {
         didSet {
             switch editMode {
@@ -37,7 +38,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func dateChanged() {
-        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 0))?.detailTextLabel!.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
     }
     
     override func viewDidLoad() {
@@ -47,16 +48,13 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool) {
         switch editMode {
         case .Add:
-            (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as! EditableTextTableViewCell).txtField.becomeFirstResponder()
-        case .New:
-            (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! EditableTextTableViewCell).txtField.becomeFirstResponder()
-        case .Edit:
-            (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! EditableTextTableViewCell).txtField.becomeFirstResponder()
+            (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 0)) as! EditableTextTableViewCell).txtField.becomeFirstResponder()
+        default:
+            (tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! EditableTextTableViewCell).txtField.becomeFirstResponder()
         }
     }
 
     override func didReceiveMemoryWarning() {
-        //print("didReceiveMemoryWarning")
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -68,11 +66,17 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     private func toggleDatePicker(show: Bool?) {
         dateTimePickerVisible = show == nil ? !dateTimePickerVisible : show!
         
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 4, inSection: 0)], withRowAnimation: .Automatic)
+    }
+    
+    private func toggleCategoryPicker() {
+        toggleCategoryPicker(nil)
+    }
+    
+    private func toggleCategoryPicker(show: Bool?) {
+        categoryPickerVisible = show == nil ? !categoryPickerVisible : show!
         
-/*        // Force table to update its contents
-        tableView.beginUpdates()
-        tableView.endUpdates()*/
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
     }
 
     // MARK: - Table view data source
@@ -84,7 +88,7 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 5
+            return 6
         case 1:
             return meal!.facts.count + 1
         default:
@@ -95,10 +99,16 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.view.endEditing(true)
         switch (indexPath.section, indexPath.row) {
-        case (0, 2):
+        case (0, 0):
+            if editMode != .Add {
+                toggleCategoryPicker()
+            }
+        case (0, 3):
+            toggleCategoryPicker(false)
             toggleDatePicker()
         default:
             toggleDatePicker(false)
+            toggleCategoryPicker(false)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? EditableTextTableViewCell {
                 cell.txtField.becomeFirstResponder()
             }
@@ -108,11 +118,13 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row, editMode) {
-        case (0, 2, .New):
+        case (0, 1, _):
+            return categoryPickerVisible ? 220 : 0
+        case (0, 3, .New):
             return 0
-        case (0, 2, .Edit):
+        case (0, 3, .Edit):
             return 0
-        case (0, 3, _):
+        case (0, 4, _):
             return dateTimePickerVisible ? 220 : 0
         default:
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
@@ -122,11 +134,11 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? EditableTextTableViewCell {
             switch (indexPath.section, indexPath.row) {
-            case (0, 0):
-                cell.txtField.removeTarget(self, action: "editMealCategory:", forControlEvents: .EditingChanged)
-            case (0, 1):
+            /*case (0, 0):
+                //cell.txtField.removeTarget(self, action: "editMealCategory:", forControlEvents: .EditingChanged)*/
+            case (0, 2):
                 cell.txtField.removeTarget(self, action: "editMealName:", forControlEvents: .EditingChanged)
-            case (0, 4):
+            case (0, 5):
                 if editMode != .Add {
                     cell.txtField.removeTarget(self, action: "editTypicalServingSize:", forControlEvents: .EditingChanged)
                 } else {
@@ -144,51 +156,57 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //print("tableView-cellForRowAtIndexPath at " + String(indexPath.section) + "," + String(indexPath.row) + "")
         let cell: UITableViewCell
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            if editMode == .New {
+            /*if editMode == .New {
                 cell = createEditableTableViewCell(indexPath, leftText: "Category", rightText: meal!.category, tag: 1000)
                 (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editMealCategory:", forControlEvents: .EditingChanged)
                 (cell as! EditableTextTableViewCell).txtField.keyboardType = .Default
                 (cell as! EditableTextTableViewCell).txtField.autocorrectionType = .Yes
                 (cell as! EditableTextTableViewCell).txtField.autocapitalizationType = .Sentences
-            } else {
+            } else {*/
                 cell = createTableViewCell(indexPath, leftText: "Category", rightText: meal!.category, tag: 1000)
-            }
+            //}
         case (0, 1):
+            cell = tableView.dequeueReusableCellWithIdentifier("PickerTableViewCell", forIndexPath: indexPath)
+            cell.tag = 1001
+            let picker: UIPickerView = (cell as! PickerTableViewCell).picker
+            picker.dataSource = self
+            picker.delegate = self
+            picker.selectRow(MealCatalog.categoryIndex(meal!.category), inComponent: 0, animated: true)
+        case (0, 2):
             if editMode == .Add {
-                cell = createTableViewCell(indexPath, leftText: "Name", rightText: meal!.name, tag: 1001)
+                cell = createTableViewCell(indexPath, leftText: "Name", rightText: meal!.name, tag: 1002)
             } else {
-                cell = createEditableTableViewCell(indexPath, leftText: "Name", rightText: meal!.name, tag: 1001)
+                cell = createEditableTableViewCell(indexPath, leftText: "Name", rightText: meal!.name, tag: 1002)
                 (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editMealName:", forControlEvents: .EditingChanged)
                 (cell as! EditableTextTableViewCell).txtField.keyboardType = .Default
                 (cell as! EditableTextTableViewCell).txtField.autocorrectionType = .Yes
                 (cell as! EditableTextTableViewCell).txtField.autocapitalizationType = .Sentences
             }
-        case (0, 2):
-            cell = createTableViewCell(indexPath, leftText: "Date and Time", rightText: NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle), tag: 1002)
         case (0, 3):
+            cell = createTableViewCell(indexPath, leftText: "Date and Time", rightText: NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle), tag: 1003)
+        case (0, 4):
             cell = tableView.dequeueReusableCellWithIdentifier("DateTimePickerTableViewCell", forIndexPath: indexPath)
-            cell.tag = 1003
+            cell.tag = 1004
             let dateTimePicker: UIDatePicker = (cell as! DateTimePickerTableViewCell).dateTimePicker
             dateTimePicker.maximumDate = NSDate()
             dateTimePicker.addTarget(self, action: "didChangeDate:", forControlEvents: UIControlEvents.ValueChanged)
             dateTimePicker.date = date
-        case (0, 4):
+        case (0, 5):
             let formatter = NSNumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
             
             if editMode == .Add {
-                cell = createEditableTableViewCell(indexPath, leftText: "Serving Size", rightText: formatter.stringFromNumber(meal!.serving)!, tag: 1004)
+                cell = createEditableTableViewCell(indexPath, leftText: "Serving Size", rightText: formatter.stringFromNumber(meal!.serving)!, tag: 1005)
                 (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editServingSize:", forControlEvents: .EditingChanged)
                 (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
             } else {
-                cell = createEditableTableViewCell(indexPath, leftText: "Typical Serving Size", rightText: formatter.stringFromNumber(meal!.serving)!, tag: 1004)
+                cell = createEditableTableViewCell(indexPath, leftText: "Typical Serving Size", rightText: formatter.stringFromNumber(meal!.serving)!, tag: 1005)
                 (cell as! EditableTextTableViewCell).txtField.addTarget(self, action: "editTypicalServingSize:", forControlEvents: .EditingChanged)
                 (cell as! EditableTextTableViewCell).txtField.keyboardType = .DecimalPad
             }
@@ -224,7 +242,6 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
             }
         default:
             cell = UITableViewCell()
-            print("defaulting!")
         }
         
         return cell
@@ -291,6 +308,25 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: UIPickerViewDataSource
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // MARK: UIPickerViewDelegate
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return MealCatalog.categories().count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return MealCatalog.categoryName(row)
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        meal?.category = MealCatalog.categoryName(row)
+        tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))?.detailTextLabel!.text = MealCatalog.categoryName(row)
+    }
+    
     // MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         // Hide the keyboard.
@@ -303,9 +339,9 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
         tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
-    func editMealCategory(textField: UITextField) {
+    /*func editMealCategory(textField: UITextField) {
         meal!.category = textField.text ?? ""
-    }
+    }*/
     
     func editMealName(textField: UITextField) {
         meal!.name = textField.text ?? ""
@@ -361,13 +397,11 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
 
     // MARK: Navigation
     @IBAction func cancel(sender: UIBarButtonItem) {
-        //print("cancel")
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //print("prepareForSegue")
         if sender === rightBarButton {
             if editMode == .Add {
                 meal!.timestamp = date
@@ -379,7 +413,6 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Actions
     @IBAction func didChangeDate(sender: UIDatePicker) {
-        //print("didChangeDate")
         date = sender.date
     }
 }
