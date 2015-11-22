@@ -62,12 +62,17 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private func toggleDatePicker() {
-        //print("toggleDatePicker")
-        dateTimePickerVisible = !dateTimePickerVisible
+        toggleDatePicker(nil)
+    }
+    
+    private func toggleDatePicker(show: Bool?) {
+        dateTimePickerVisible = show == nil ? !dateTimePickerVisible : show!
         
-        // Force table to update its contents
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
+        
+/*        // Force table to update its contents
         tableView.beginUpdates()
-        tableView.endUpdates()
+        tableView.endUpdates()*/
     }
 
     // MARK: - Table view data source
@@ -88,10 +93,12 @@ class MealTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.view.endEditing(true)
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
             toggleDatePicker()
         default:
+            toggleDatePicker(false)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? EditableTextTableViewCell {
                 cell.txtField.becomeFirstResponder()
             }
