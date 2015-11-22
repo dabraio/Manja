@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,18 +17,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="512" placeholderIntrinsicHeight="512" image="AppLogo" translatesAutoresizingMaskIntoConstraints="NO" id="uTr-3E-XON">
-                                <rect key="frame" x="20" y="0.0" width="560" height="600"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jOh-si-vjX">
+                                <rect key="frame" x="250" y="231" width="100" height="139"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="512" placeholderIntrinsicHeight="512" image="AppLogoRed" translatesAutoresizingMaskIntoConstraints="NO" id="uTr-3E-XON">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="04k-pI-sn4"/>
+                                            <constraint firstAttribute="width" secondItem="uTr-3E-XON" secondAttribute="height" multiplier="1:1" id="Ky0-s4-TcK"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="RJZ-MF-gyd"/>
+                                            <constraint firstAttribute="height" constant="100" id="zDW-1L-mXG"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="86" placeholderIntrinsicHeight="39" text="Manja" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fn-Tg-LZY">
+                                        <rect key="frame" x="7" y="100" width="86" height="39"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <animations/>
-                            </imageView>
+                            </stackView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="uTr-3E-XON" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="6TA-FU-HPg"/>
-                            <constraint firstItem="uTr-3E-XON" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="RJh-q0-39Z"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="uTr-3E-XON" secondAttribute="bottom" id="YHV-L6-0dp"/>
-                            <constraint firstItem="uTr-3E-XON" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="vhI-2g-uEn"/>
+                            <constraint firstItem="jOh-si-vjX" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cr4-YK-1h5"/>
+                            <constraint firstItem="jOh-si-vjX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="qey-xu-UZ1"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +55,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppLogo" width="250" height="444"/>
+        <image name="AppLogoRed" width="100" height="100"/>
     </resources>
+    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
