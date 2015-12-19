@@ -10,7 +10,7 @@ import UIKit
 import XCTest
 
 class ManjaTests: XCTestCase {
-    // MARK: FoodTracker Tests
+    // MARK: FoodTracker Tests 
     
     // Tests to confirm that the Meal initializer returns when no name or a negative rating is provided.
     func testMealInitialization() {
